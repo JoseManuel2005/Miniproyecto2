@@ -5,6 +5,11 @@
 package Vista;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import Vista.VentanaJuego;
+import Vista.VentanaUtilidad;
+import Vista.Instrucciones.VentanaInstrucciones1;
 
 /**
  *
@@ -25,7 +30,7 @@ public class VentanaInicio extends JFrame{
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("Adosa2");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     private void iniciarComponentes(){
@@ -58,9 +63,33 @@ public class VentanaInicio extends JFrame{
        
         contenedorppal.add(panelPrincipal);
         panelPrincipal.setBounds(20, 160, 450, 40);
+        btnJugar.addMouseListener(new ManejadorEventos());
+        btnComoJugar.addMouseListener(new ManejadorEventos());
+        btnUtilidad.addMouseListener(new ManejadorEventos());
+
         
     }
     
-    
+     class ManejadorEventos extends MouseAdapter{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getSource() == btnJugar) {
+                dispose();
+                VentanaJuego ventanaJuego = new VentanaJuego();
+                ventanaJuego.setVisible(true);
+            }else if (e.getSource() == btnComoJugar) {
+                dispose();
+                VentanaInstrucciones1 ventanaInstrucciones = new VentanaInstrucciones1();
+                ventanaInstrucciones.setVisible(true);
+            }else if (e.getSource() == btnUtilidad){
+                dispose();
+                VentanaUtilidad ventanaUtilidad= new VentanaUtilidad();
+                ventanaUtilidad.setVisible(true);
+            }
+        }
+     
+     
+     }
     
 }
