@@ -123,7 +123,7 @@ public class VentanaInicio extends JFrame{
         
         @Override
         public void paint(Graphics g) {
-            fondo = new ImageIcon(getClass().getResource("/imagenes/Fondo (1).png")).getImage();
+            fondo = new ImageIcon(getClass().getResource("/imagenes/frames/fondoPrincipal.png")).getImage();
             g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
