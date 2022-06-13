@@ -11,11 +11,18 @@ import javax.swing.*;
  */
 public class VentanaUtilidad extends JFrame{
     Container contenedorPpal;
-    private JTextArea lblTexto;
-
+    private JLabel lblTexto1;
+    private JLabel lblTexto2;
+    private JLabel lblTexto3;
+    private JLabel lblTexto4;
+    private JLabel lblTexto5;
+    private JLabel lblTexto6;
+    fondoUtilidad fondo = new fondoUtilidad();
+    
     public VentanaUtilidad() {
+        this.setContentPane(fondo);
         iniciarComponentes();
-        setSize(400, 150);
+        setSize(720, 230);
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("¿Para que sirve?");
@@ -24,14 +31,49 @@ public class VentanaUtilidad extends JFrame{
     }
     
     private void iniciarComponentes(){
-        lblTexto = new JTextArea("Este juego pone en accion la habilidad para comparar" + "\n" + "patrones visuales, entrenando ademas la aatencion" + "\n" + "a los detalles y la velocidad perceptiva. Estas capacidades son" + "\n"   + "relevantes cuand hay que decidir entre estimulos" + "\n" + "semejantes y hay que hacerlo de forma rapida, por ejemplo" + "\n" + "al reconocer fotografias, caras, objetos cotidianos o palabras escritas.");
-        lblTexto.setBounds(1, 1, 390, 150);
-        lblTexto.setEditable(false);
+        lblTexto1 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/1.png")));
+        lblTexto1.setBounds(50, 1, 591, 41);
        
+        lblTexto2 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/2.png")));
+        lblTexto2.setBounds(36, 31, 621, 45);
+        
+        lblTexto3 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/3.png")));
+        lblTexto3.setBounds(27, 65, 645, 41);
+        
+        lblTexto4 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/4.png")));
+        lblTexto4.setBounds(1, 95, 696, 39);
+        
+        lblTexto5 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/5.png")));
+        lblTexto5.setBounds(23, 121, 675, 42);
+        
+        lblTexto6 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/6.png")));
+        lblTexto6.setBounds(23, 151, 657, 42);
+        
         contenedorPpal = getContentPane();
         contenedorPpal.setLayout(null);
-        contenedorPpal.add(lblTexto);
         
+        contenedorPpal.add(lblTexto1);
+        contenedorPpal.add(lblTexto2);
+        
+        contenedorPpal.add(lblTexto3);
+        contenedorPpal.add(lblTexto4);
+        contenedorPpal.add(lblTexto5);
+        contenedorPpal.add(lblTexto6);
+        
+        
+        
+    }
+    
+    class fondoUtilidad extends JPanel{
+        private Image imagen;
+        
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/Imagenes/frames/fondoUtilidad.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
     }
     
 }
