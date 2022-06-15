@@ -44,7 +44,7 @@ public class VentanaJuego extends JFrame{
         lblPuntuacion.setBounds(10, 10, 100, 20);
         
       
-        lblCuadrado1 = new JLabel(new ImageIcon("src/Imagenes/ventanaJuego/Azul.PNG"));
+        lblCuadrado1 = new JLabel(new ImageIcon("src/Imagenes/ventanaJuego/1.PNG"));
         lblCuadrado1.setBounds(500, 50, 100, 100);
         
         
@@ -99,13 +99,13 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(btnVida2);
         contenedorppal.add(btnVida3);
         contenedorppal.add(lblCuadrado1);
-        contenedorppal.add(lblCuadrado2);
+        //contenedorppal.add(lblCuadrado2);
         contenedorppal.add(lblCuadrado3);
-        contenedorppal.add(lblCuadrado4);
+        //contenedorppal.add(lblCuadrado4);
         contenedorppal.add(lblCuadrado5);
-        contenedorppal.add(lblCuadrado6);
+        //contenedorppal.add(lblCuadrado6);
         contenedorppal.add(lblCuadrado7);
-        contenedorppal.add(lblCuadrado8);
+        //contenedorppal.add(lblCuadrado8);
 
         
     }
