@@ -16,15 +16,15 @@ public class Cuadrado {
     
 
     public Cuadrado( boolean aparece) {
-        Random r = new Random();
-        imagen = (int)(r.nextDouble()*7);
+        //Random r = new Random();
+        //imagen = (int)(r.nextDouble()*7);
        
         this.aparece = aparece;
     }
 
     public void setImagen() {
-        //Random r = new Random();
-        //imagen = (int)(r.nextDouble()*7);
+        Random r = new Random();
+        imagen = (int)(r.nextDouble()*7);
     }
 
     public void setAparece(boolean aparece) {

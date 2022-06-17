@@ -35,7 +35,14 @@ public class VentanaJuego extends JFrame{
     
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
+    Cuadrado tres = new Cuadrado(true);
+    Cuadrado cuatro = new Cuadrado(true);
+    Cuadrado cinco = new Cuadrado(true);
+    Cuadrado seis = new Cuadrado(true);
+    Cuadrado siete = new Cuadrado(true);
+    Cuadrado ocho = new Cuadrado(true);
     
+    Juego juego = new Juego(uno,dos,tres,cuatro,cinco,seis,siete,ocho);
     
     fondoJuego fondo = new fondoJuego();
     
@@ -55,7 +62,7 @@ public class VentanaJuego extends JFrame{
     private void iniciarComponentes(){
         //icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
         
-        lblPuntuacion = new JLabel("Puntuacion 000"); //Modificar esto
+        lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); //Modificar esto
         lblPuntuacion.setBounds(10, 10, 100, 20);
         
         lblCuadrado1 = new JLabel();
@@ -74,16 +81,19 @@ public class VentanaJuego extends JFrame{
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+                uno.setImagen();
+                icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
                 
-                icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + (int)(Math.random()*7) + ".PNG");
+                dos.setImagen();
+                icono2 = new ImageIcon("src/Imagenes/ventanaJuego/" + dos.getImagen() + ".PNG");
                 System.out.println("SE PRENDIO ESTA VAINA");
+   
+                tres.setImagen();
+                icono3 = new ImageIcon("src/Imagenes/ventanaJuego/" + tres.getImagen() + ".PNG");
+              
+                System.out.println((int)(Math.random()*8));
                 
-                icono2 = new ImageIcon("src/Imagenes/ventanaJuego/" + (int)(Math.random()*7) + ".PNG");
-                
-                icono3 = new ImageIcon("src/Imagenes/ventanaJuego/" + (int)(Math.random()*7) + ".PNG");
-                
-                System.out.println((int)(Math.random()*7));
-                
+
                 lblCuadrado1.setIcon(icono1);
                 lblCuadrado2.setIcon(icono2);
                 lblCuadrado3.setIcon(icono3);
@@ -189,7 +199,7 @@ public class VentanaJuego extends JFrame{
         
         @Override
         public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoJuego.png")).getImage();
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
