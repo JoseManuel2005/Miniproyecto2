@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
-import Modelo.Cuadrado;
 /**
  *
  * @author Usuario
@@ -14,7 +13,10 @@ public class Juego {
      private int errores;
      private int vidas;
      private int numeroCuadros;
+     private boolean cuadrosIguales;
+     private boolean huboError;
      private Cuadrado cuadros[];
+     
 
     public Juego(Cuadrado cuadro1, Cuadrado cuadro2, Cuadrado cuadro3, Cuadrado cuadro4, Cuadrado cuadro5, Cuadrado cuadro6, Cuadrado cuadro7, Cuadrado cuadro8) {
         puntuacion = 0;
@@ -23,28 +25,15 @@ public class Juego {
         vidas = 3;
         numeroCuadros = 3;
         Cuadrado cuadros[] = {cuadro1,cuadro2, cuadro3,cuadro4,cuadro5,cuadro6,cuadro7,cuadro8};
-       
+        cuadrosIguales = false;
+        huboError = false;
     }
 
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
+    public void setPuntuacion() {
+        puntuacion++;
     }
 
-    public void setAciertos(int aciertos) {
-        this.aciertos = aciertos;
-    }
-
-    public void setErrores(int errores) {
-        this.errores = errores;
-    }
-
-    public void setVidas(int vidas) {
-        this.vidas = vidas;
-    }
   
-    public void setNumeroCuadros(int numeroCuadros) {
-        this.numeroCuadros = numeroCuadros;
-    }
     
     public int getPuntuacion() {
         return puntuacion;
@@ -65,10 +54,34 @@ public class Juego {
     public int getNumeroCuadros() {
         return numeroCuadros;
     }
+
+    public boolean isCuadrosIguales() {
+        return cuadrosIguales;
+    }
+
+    public void setAciertos() {
+        aciertos++;
+    }
+
+    public void errores() {
+        errores++;
+        huboError = true;
+    }
+
+    public void disminuirVidas() {
+        vidas--;
+    }
+
+    public boolean isHuboError() {
+        return huboError;
+    }
+    
+    
+    
+    
     
     public void sonIguales(){
-        
-        
+         
         
     }
 }

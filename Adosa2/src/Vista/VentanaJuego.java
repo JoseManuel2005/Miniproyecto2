@@ -32,6 +32,12 @@ public class VentanaJuego extends JFrame{
     private ImageIcon icono1;
     private ImageIcon icono2;
     private ImageIcon icono3;
+    private ImageIcon icono4;
+    private ImageIcon icono5;
+    private ImageIcon icono6;
+    private ImageIcon icono7;
+    private ImageIcon icono8;
+    //private int array[] = new int[8];
     
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
@@ -41,6 +47,8 @@ public class VentanaJuego extends JFrame{
     Cuadrado seis = new Cuadrado(true);
     Cuadrado siete = new Cuadrado(true);
     Cuadrado ocho = new Cuadrado(true);
+    
+    
     
     Juego juego = new Juego(uno,dos,tres,cuatro,cinco,seis,siete,ocho);
     
@@ -64,40 +72,94 @@ public class VentanaJuego extends JFrame{
         
         lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); //Modificar esto
         lblPuntuacion.setBounds(10, 10, 100, 20);
+        lblPuntuacion.setForeground(Color.white);
         
-        lblCuadrado1 = new JLabel();
-        
+        lblCuadrado1 = new JLabel();       
         lblCuadrado1.setBounds(500, 50, 100, 100);
-        
-        
+       
         lblCuadrado2 = new JLabel();
-        
         lblCuadrado2.setBounds(500, 150, 100, 100);
         
         lblCuadrado3 = new JLabel();
         lblCuadrado3.setBounds(500, 280, 100, 100);
         
+        lblCuadrado4 = new JLabel();
+        lblCuadrado4.setBounds(500, 380, 100, 100);
+        lblCuadrado4.setVisible(false);
+        
+        lblCuadrado5 = new JLabel();
+        lblCuadrado5.setBounds(610, 215, 100, 100);
+        lblCuadrado5.setVisible(false);
+        
+        lblCuadrado6 = new JLabel();
+        lblCuadrado6.setBounds(710, 215, 100, 100);
+        lblCuadrado6.setVisible(false);
+        
+        lblCuadrado7 = new JLabel();
+        lblCuadrado7.setBounds(390, 215, 100, 100);
+        lblCuadrado7.setVisible(false);
+        
+        lblCuadrado8 = new JLabel();
+        lblCuadrado8.setBounds(290, 215, 100, 100);
+        lblCuadrado8.setVisible(false);
+       
+        
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+                
                 uno.setImagen();
                 icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
                 
                 dos.setImagen();
                 icono2 = new ImageIcon("src/Imagenes/ventanaJuego/" + dos.getImagen() + ".PNG");
-                System.out.println("SE PRENDIO ESTA VAINA");
-   
+
                 tres.setImagen();
                 icono3 = new ImageIcon("src/Imagenes/ventanaJuego/" + tres.getImagen() + ".PNG");
               
-                System.out.println((int)(Math.random()*8));
+                cuatro.setImagen();
+                icono4 = new ImageIcon("src/Imagenes/ventanaJuego/" + cuatro.getImagen() + ".PNG");
+                
+                cinco.setImagen();
+                icono5 = new ImageIcon("src/Imagenes/ventanaJuego/" + cinco.getImagen() + ".PNG");
+                
+                seis.setImagen();
+                icono6 = new ImageIcon("src/Imagenes/ventanaJuego/" + seis.getImagen() + ".PNG");
+                
+                siete.setImagen();
+                icono7 = new ImageIcon("src/Imagenes/ventanaJuego/" + siete.getImagen() + ".PNG");
+                
+                ocho.setImagen();
+                icono8 = new ImageIcon("src/Imagenes/ventanaJuego/" + ocho.getImagen() + ".PNG");
+                
                 
 
                 lblCuadrado1.setIcon(icono1);
                 lblCuadrado2.setIcon(icono2);
                 lblCuadrado3.setIcon(icono3);
-            }
+                lblCuadrado4.setIcon(icono4);
+                lblCuadrado5.setIcon(icono5);
+                lblCuadrado6.setIcon(icono6);
+                lblCuadrado7.setIcon(icono7);
+                lblCuadrado8.setIcon(icono8);
+                /*
+                 array[0] = uno.getImagen();
+                 array[1] = dos.getImagen();
+                 array[2] = tres.getImagen();
+                 array[3] = cuatro.getImagen();
+                 array[4] = cinco.getImagen();
+                 array[5] = seis.getImagen();
+                 array[6] = siete.getImagen();
+                 array[7] = ocho.getImagen();
+                */
+               //System.out.println(uno.getImagen() == dos.getImagen());
+                
+                 
+                
+                }
+                
+            
         };
         
         timer.scheduleAtFixedRate(task, 0, 1000);
@@ -164,11 +226,11 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(lblCuadrado1);
         contenedorppal.add(lblCuadrado2);
         contenedorppal.add(lblCuadrado3);
-        //contenedorppal.add(lblCuadrado4);
-        //contenedorppal.add(lblCuadrado5);
-        //contenedorppal.add(lblCuadrado6);
-        //contenedorppal.add(lblCuadrado7);
-        //contenedorppal.add(lblCuadrado8);
+        contenedorppal.add(lblCuadrado4);
+        contenedorppal.add(lblCuadrado5);
+        contenedorppal.add(lblCuadrado6);
+        contenedorppal.add(lblCuadrado7);
+        contenedorppal.add(lblCuadrado8);
         contenedorppal.add(btnAdivinar);
         
         btnAdivinar.addMouseListener(new manejadorEventos());
@@ -184,7 +246,41 @@ public class VentanaJuego extends JFrame{
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == btnAdivinar){
-                System.out.println("Boton presionado");
+                if (uno.getImagen() == dos.getImagen() || uno.getImagen() == tres.getImagen() || dos.getImagen() == tres.getImagen()) {
+                    System.out.println("true");
+                    juego.setPuntuacion();
+                    lblPuntuacion.setText(juego.getPuntuacion() + "");
+                    juego.setAciertos();
+                    System.out.println(juego.getAciertos());
+                }else{
+                    juego.disminuirVidas();
+                    
+                    juego.errores();
+                    System.out.println(juego.getErrores());
+                    System.out.println(juego.isHuboError());
+                    
+                    if (juego.isHuboError()== true) {
+                        switch (juego.getErrores()) {
+                            case 1 -> {
+                                btnVida3.setVisible(false);
+                            }
+                            
+                            case 2 -> {
+                                btnVida2.setVisible(false);
+                            }
+                            
+                            case 3 -> {
+                                btnVida1.setVisible(false);
+                            }
+                            
+                                
+                            
+                        }
+                    }
+                }
+                }
+                
+        
             }
         }
         
@@ -206,4 +302,4 @@ public class VentanaJuego extends JFrame{
         }
 
 }
-}
+
