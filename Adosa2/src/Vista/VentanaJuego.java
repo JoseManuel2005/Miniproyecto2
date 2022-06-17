@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import Modelo.*;
+import java.util.Timer;
+import java.util.TimerTask;
 /**
  *
  * @author Usuario
@@ -27,6 +29,9 @@ public class VentanaJuego extends JFrame{
     private JLabel  lblCuadrado8;
     private JButton btnAdivinar;
     private ImageIcon ImgAdivinar;
+    private ImageIcon icono1;
+    private ImageIcon icono2;
+    private ImageIcon icono3;
     
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
@@ -48,15 +53,47 @@ public class VentanaJuego extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     private void iniciarComponentes(){
+        //icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
         
         lblPuntuacion = new JLabel("Puntuacion 000"); //Modificar esto
         lblPuntuacion.setBounds(10, 10, 100, 20);
         
-      
-        lblCuadrado1 = new JLabel(new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG"));
+        lblCuadrado1 = new JLabel();
+        
         lblCuadrado1.setBounds(500, 50, 100, 100);
         
-        System.out.println(uno.getImagen());
+        
+        lblCuadrado2 = new JLabel();
+        
+        lblCuadrado2.setBounds(500, 150, 100, 100);
+        
+        lblCuadrado3 = new JLabel();
+        lblCuadrado3.setBounds(500, 280, 100, 100);
+        
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                
+                icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + (int)(Math.random()*7) + ".PNG");
+                System.out.println("SE PRENDIO ESTA VAINA");
+                
+                icono2 = new ImageIcon("src/Imagenes/ventanaJuego/" + (int)(Math.random()*7) + ".PNG");
+                
+                icono3 = new ImageIcon("src/Imagenes/ventanaJuego/" + (int)(Math.random()*7) + ".PNG");
+                
+                System.out.println((int)(Math.random()*7));
+                
+                lblCuadrado1.setIcon(icono1);
+                lblCuadrado2.setIcon(icono2);
+                lblCuadrado3.setIcon(icono3);
+            }
+        };
+        
+        timer.scheduleAtFixedRate(task, 0, 1000);
+        
+        /*
+      
         lblCuadrado2 = new JLabel(new ImageIcon("src/Imagenes/ventanaJuego/" + dos.getImagen() + ".PNG"));
         lblCuadrado2.setBounds(500, 150, 100, 100);
         
@@ -78,7 +115,7 @@ public class VentanaJuego extends JFrame{
         
         lblCuadrado8 = new JLabel(new ImageIcon("src/Imagenes/ventanaJuego/Madera.PNG"));
         lblCuadrado8.setBounds(290, 215, 100, 100);
-        
+        */
         ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/boton.PNG");
         
         
@@ -115,16 +152,20 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(btnVida2);
         contenedorppal.add(btnVida3);
         contenedorppal.add(lblCuadrado1);
-        //contenedorppal.add(lblCuadrado2);
+        contenedorppal.add(lblCuadrado2);
         contenedorppal.add(lblCuadrado3);
         //contenedorppal.add(lblCuadrado4);
-        contenedorppal.add(lblCuadrado5);
+        //contenedorppal.add(lblCuadrado5);
         //contenedorppal.add(lblCuadrado6);
-        contenedorppal.add(lblCuadrado7);
+        //contenedorppal.add(lblCuadrado7);
         //contenedorppal.add(lblCuadrado8);
         contenedorppal.add(btnAdivinar);
         
         btnAdivinar.addMouseListener(new manejadorEventos());
+        
+        
+        
+        
         
     }
     

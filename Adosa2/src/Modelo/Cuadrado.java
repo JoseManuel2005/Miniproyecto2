@@ -22,8 +22,9 @@ public class Cuadrado {
         this.aparece = aparece;
     }
 
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
+    public void setImagen() {
+        //Random r = new Random();
+        //imagen = (int)(r.nextDouble()*7);
     }
 
     public void setAparece(boolean aparece) {
