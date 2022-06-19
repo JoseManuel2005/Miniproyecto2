@@ -1,14 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Vista;
 import java.awt.*;
 import javax.swing.*;
+
 /**
- *
- * @author Usuario
+ * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaUtilidad.java, Autores (Grupo 01 POE): 
+ * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
+ * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
+ * Fecha creación: 10-06-2022, Fecha última modificación: 18-06-2022 
+ * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
+
 public class VentanaUtilidad extends JFrame{
     Container contenedorPpal;
     private JLabel lblTexto1;
@@ -26,8 +27,7 @@ public class VentanaUtilidad extends JFrame{
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("¿Para que sirve?");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
     }
     
     private void iniciarComponentes(){
@@ -54,19 +54,14 @@ public class VentanaUtilidad extends JFrame{
         
         contenedorPpal.add(lblTexto1);
         contenedorPpal.add(lblTexto2);
-        
         contenedorPpal.add(lblTexto3);
         contenedorPpal.add(lblTexto4);
         contenedorPpal.add(lblTexto5);
-        contenedorPpal.add(lblTexto6);
-        
-        
-        
+        contenedorPpal.add(lblTexto6); 
     }
     
     class fondoUtilidad extends JPanel{
         private Image imagen;
-        
         @Override
         public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/Imagenes/frames/fondoUtilidad.png")).getImage();
@@ -75,5 +70,4 @@ public class VentanaUtilidad extends JFrame{
             super.paint(g);
         }
     }
-    
 }

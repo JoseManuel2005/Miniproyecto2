@@ -1,30 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
-/**
- *
- * @author Usuario
- */
-public class Juego {
-     private int puntuacion;
-     private int aciertos;
-     private int errores;
-     private int vidas;
-     private int numeroCuadros;
-     private boolean cuadrosIguales;
-     private boolean huboError;
-     private Cuadrado cuadros[];
-     
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Laboratorio N.2: segundo miniproyecto. Archivo: Juego.java, Autores (Grupo 01 POE): 
+ * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
+ * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
+ * Fecha creación: 10-06-2022, Fecha última modificación: 18-06-2022 
+ * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
+ */
+
+public class Juego {
+    private int puntuacion;
+    private int aciertos;
+    private int errores;
+    private int vidas;
+    private final boolean cuadrosIguales;
+    private boolean huboError;
+    private List<Integer> numerosC = new ArrayList<Integer>();  
+     
     public Juego(Cuadrado cuadro1, Cuadrado cuadro2, Cuadrado cuadro3, Cuadrado cuadro4, Cuadrado cuadro5, Cuadrado cuadro6, Cuadrado cuadro7, Cuadrado cuadro8) {
         puntuacion = 0;
         aciertos = 0;
         errores = 0;
         vidas = 3;
-        numeroCuadros = 3;
-        Cuadrado cuadros[] = {cuadro1,cuadro2, cuadro3,cuadro4,cuadro5,cuadro6,cuadro7,cuadro8};
         cuadrosIguales = false;
         huboError = false;
     }
@@ -33,8 +33,6 @@ public class Juego {
         puntuacion++;
     }
 
-  
-    
     public int getPuntuacion() {
         return puntuacion;
     }
@@ -51,8 +49,12 @@ public class Juego {
         return vidas;
     }
 
-    public int getNumeroCuadros() {
-        return numeroCuadros;
+    public List getNumeroCuadros(List<Cuadrado> cuadros) {
+        numerosC.removeAll(numerosC);
+        for(int i = 0; i < cuadros.size(); i++){
+            numerosC.add((cuadros.get(i)).getImagen());
+        }
+        return numerosC;
     }
 
     public boolean isCuadrosIguales() {
@@ -76,12 +78,7 @@ public class Juego {
         return huboError;
     }
     
-    
-    
-    
-    
     public void sonIguales(){
-         
-        
+           
     }
 }

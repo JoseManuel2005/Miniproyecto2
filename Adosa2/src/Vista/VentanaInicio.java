@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Vista;
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +6,13 @@ import java.awt.event.MouseEvent;
 import Vista.Instrucciones.VentanaInstrucciones1;
 
 /**
- *
- * @author Usuario
+ * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaInicio.java, Autores (Grupo 01 POE): 
+ * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
+ * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
+ * Fecha creación: 10-06-2022, Fecha última modificación: 18-06-2022 
+ * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
+
 public class VentanaInicio extends JFrame{
     private JButton btnComoJugar;
     private JButton btnJugar;
@@ -24,7 +24,6 @@ public class VentanaInicio extends JFrame{
     private ImageIcon fondoJugar;
     private ImageIcon fondoComoJugar; 
     private ImageIcon fondoUtilidad; 
-
 
     public VentanaInicio(){
         this.setContentPane(imagenFondo);
@@ -48,6 +47,10 @@ public class VentanaInicio extends JFrame{
         btnComoJugar.setFocusPainted(false);
         btnComoJugar.setBorderPainted(false);
         btnComoJugar.setContentAreaFilled(false);
+        btnComoJugar.setAutoscrolls(true);
+        btnComoJugar.setBorder(null);
+        btnComoJugar.setPressedIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarp.png")));
+        btnComoJugar.setRolloverIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarr.png")));
          
         btnJugar = new JButton("Jugar");
         btnJugar.setBounds(380, 380, 238, 77);
@@ -68,36 +71,31 @@ public class VentanaInicio extends JFrame{
         
         /*
         contenedorppal.add(btnComoJugar);
-        contenedorppal.add(btnComoJugar);*/
-        
-        
-        
-        //panelBotones = new JPanel();
-        //panelBotones.setLayout(new FlowLayout());
+        contenedorppal.add(btnComoJugar);
+        panelBotones = new JPanel();
+        panelBotones.setLayout(new FlowLayout());
+        */
+
         contenedorppal = getContentPane();
         
-        //panelPrincipal = new JPanel();
-        
-        
-        /*panelBotones.add(btnComoJugar);
+        /*
+        panelPrincipal = new JPanel();
+        panelBotones.add(btnComoJugar);
         panelBotones.add(btnJugar);
         panelBotones.add(btnUtilidad);
         panelPrincipal.add(panelBotones);
-       */
+        */
+
         contenedorppal.add(btnComoJugar);
         contenedorppal.add(btnJugar);
         contenedorppal.add(btnUtilidad);
         //panelPrincipal.setBounds(20, 160, 450, 40);
         btnJugar.addMouseListener(new ManejadorEventos());
         btnComoJugar.addMouseListener(new ManejadorEventos());
-        btnUtilidad.addMouseListener(new ManejadorEventos());
-       
-        
+        btnUtilidad.addMouseListener(new ManejadorEventos()); 
     }
     
- 
      class ManejadorEventos extends MouseAdapter{
-
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == btnJugar) {
@@ -114,13 +112,10 @@ public class VentanaInicio extends JFrame{
                 ventanaUtilidad.setVisible(true);
             }
         }
-     
-     
      }
      
     class imagenFondo extends JPanel{
         private Image fondo;
-        
         @Override
         public void paint(Graphics g) {
             fondo = new ImageIcon(getClass().getResource("/imagenes/frames/fondoPrincipal.png")).getImage();
@@ -128,9 +123,5 @@ public class VentanaInicio extends JFrame{
             setOpaque(false);
             super.paint(g);
         }
-        
-    
-       
-    
     }
 }
