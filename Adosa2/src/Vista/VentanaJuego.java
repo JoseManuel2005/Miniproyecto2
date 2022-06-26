@@ -53,7 +53,7 @@ public class VentanaJuego extends JFrame{
     private Timer timer = new Timer();
     private TimerTask task;
     private JButton btnPrueba;
-    
+    private Font fuentePuntuacion;
     
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
@@ -73,15 +73,18 @@ public class VentanaJuego extends JFrame{
     public VentanaJuego()  {
         this.setContentPane(fondo);
         iniciarComponentes();
-        setSize(800,700);
+        setSize(800,680);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void iniciarComponentes(){
+        fuentePuntuacion = new Font("JHUF",Font.PLAIN, 20);
+        
         lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); //Modificar esto
-        lblPuntuacion.setBounds(10, 10, 100, 20);
+        lblPuntuacion.setFont(fuentePuntuacion);
+        lblPuntuacion.setBounds(10, 10, 500, 20);
         lblPuntuacion.setForeground(Color.white);
         
         lblCuadrado1 = new JLabel();       
@@ -202,6 +205,9 @@ public class VentanaJuego extends JFrame{
         btnAdivinar = new JButton();
         btnAdivinar.setBounds(600, 450, 130, 130);
         btnAdivinar.setIcon(new ImageIcon(ImgAdivinar.getImage().getScaledInstance(btnAdivinar.getWidth() , btnAdivinar.getHeight(), Image.SCALE_SMOOTH)));
+        btnAdivinar.setFocusPainted(false);
+        btnAdivinar.setBorderPainted(false);
+        btnAdivinar.setContentAreaFilled(false);
 
         btnVida1 = new JButton();
         btnVida1.setEnabled(false);
@@ -233,11 +239,7 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(lblCuadrado6);
         contenedorppal.add(lblCuadrado7);
         contenedorppal.add(lblCuadrado8);
-        contenedorppal.add(btnAdivinar);
-        /*
-        btnPrueba = new JButton();
-        btnPrueba.setBounds(50, 50, 130, 130);*/
-        //contenedorppal.add(btnPrueba);
+        contenedorppal.add(btnAdivinar);     
         btnAdivinar.addMouseListener(new manejadorEventos());  
     }
 
