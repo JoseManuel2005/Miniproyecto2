@@ -12,6 +12,16 @@ import java.util.Random;
 public class Cuadrado {
     private int imagen;
     private boolean aparece;
+
+    private int numero;
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
     
     public Cuadrado(boolean aparece) {
         this.aparece = aparece;
@@ -28,7 +38,7 @@ public class Cuadrado {
         int numeros[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
         int numerosEx[] = remueveElemento(numeros, nEx);
         Random r = new Random();
-        imagen = numerosEx[(int)(r.nextDouble()*16)];
+        imagen = numerosEx[(int)(r.nextDouble()*15)];
     }
 
     // Coloca como imagen el entero que recibe como parametro

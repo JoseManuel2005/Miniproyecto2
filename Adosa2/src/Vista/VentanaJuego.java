@@ -5,12 +5,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import Modelo.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import javax.swing.Timer;
 import java.util.List;
 import java.util.Set;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.border.Border;
 
 /**
  * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaJuego.java, Autores (Grupo 01 POE): 
@@ -48,6 +57,11 @@ public class VentanaJuego extends JFrame{
     private final List<Cuadrado> cuadrosGraficar = new ArrayList<>();
     private List<Integer> imagenesCuadros = new ArrayList<>();
     private Timer timer;
+    private Timer borderTime;
+    private boolean notClicked;
+    private boolean notPressed;
+    private Cuadrado lastCuadrado;
+    private Clip sonido;
     
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
@@ -59,8 +73,9 @@ public class VentanaJuego extends JFrame{
     Cuadrado ocho = new Cuadrado(true);
     
     Juego juego = new Juego(uno,dos,tres,cuatro,cinco,seis,siete,ocho);
-    
+
     fondoJuego fondo = new fondoJuego();
+    fondoFinJuego fondoFin = new fondoFinJuego();
     
     Container contenedorppal;
      
@@ -74,6 +89,7 @@ public class VentanaJuego extends JFrame{
     }
 
     private void iniciarComponentes(){
+        reproducirSonido("fondo");
         lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); //Modificar esto
         lblPuntuacion.setBounds(10, 10, 100, 20);
         lblPuntuacion.setForeground(Color.white);
@@ -110,6 +126,17 @@ public class VentanaJuego extends JFrame{
         uno.setImagen();
         dos.setImagen();
         tres.setImagen();
+
+        uno.setNumero(1);
+        dos.setNumero(2);
+        tres.setNumero(3);
+        cuatro.setNumero(4);
+        cinco.setNumero(5);
+        seis.setNumero(6);
+        siete.setNumero(7);
+        ocho.setNumero(8);
+        this.notPressed = true;
+        this.notClicked = true;
 
         int x = uno.getImagen();
         int y = dos.getImagen();
@@ -167,46 +194,91 @@ public class VentanaJuego extends JFrame{
         cuadrosRestantes.add(8);
 
         timer = new Timer(juego.getTiempo(), null);
-        timer.setInitialDelay(juego.getTiempo());
 
         // Selecciona un Cuadrado de entre los visibles, aleatoriamente, y llama a una funcion que cambia su imagen
         timer.addActionListener((ActionEvent e) -> {
-                Random r = new Random();
-                int aux = (int)(r.nextDouble()*(2+juego.getNivel()));
-                switch (aux) {
-                    case 0 -> {
+            SwingUtilities.updateComponentTreeUI(contenedorppal);
+            boolean noSend = false;
+            if(verificar() == true && notClicked == true && notPressed == true){
+                baldosasDistintas();
+                noSend = true;
+            }
+            Random r = new Random();
+            int max;
+            if(juego.getNivel() < 6){
+                max = 2 + juego.getNivel();
+            } else {
+                max = 8;
+            }
+            int aux = (int)(r.nextDouble()*(max));
+            aux = cuadrosGraficar.get(aux).getNumero() -1;
+            switch (aux) {
+                case 0 -> {
+                    if(noSend == false){
                         cambioDeImagen(uno, icono1, lblCuadrado1);
-                        break;
+                    } else {
+                        cambioDeNumero(uno);
                     }
-                    case 1 -> {
+                    break;
+                }
+                case 1 -> {
+                    if(noSend == false){
                         cambioDeImagen(dos, icono2, lblCuadrado2);
-                        break;
+                    } else {
+                        cambioDeNumero(dos);
                     }
-                    case 2 -> {
+                    break;
+                }
+                case 2 -> {
+                    if(noSend == false){
                         cambioDeImagen(tres, icono3, lblCuadrado3);
-                        break;
+                    } else {
+                        cambioDeNumero(tres);
                     }
-                    case 3 -> {
+                    break;
+                }
+                case 3 -> {
+                    if(noSend == false){
                         cambioDeImagen(cuatro, icono4, lblCuadrado4);
-                        break;
+                    } else {
+                        cambioDeNumero(cuatro);
                     }
-                    case 4 -> {
+                    break;
+                }
+                case 4 -> {
+                    if(noSend == false){
                         cambioDeImagen(cinco, icono5, lblCuadrado5);
-                        break;
+                    } else {
+                        cambioDeNumero(cinco);
                     }
-                    case 5 -> {
+                    break;
+                }
+                case 5 -> {
+                    if(noSend == false){
                         cambioDeImagen(seis, icono6, lblCuadrado6);
-                        break;
+                    } else {
+                        cambioDeNumero(seis);
                     }
-                    case 6 -> {
+                    break;
+                }
+                case 6 -> {
+                    if(noSend == false){
                         cambioDeImagen(siete, icono7, lblCuadrado7);
-                        break;
+                    } else {
+                        cambioDeNumero(siete);
                     }
-                    case 7 -> {
+                    break;
+                }
+                case 7 -> {
+                    if(noSend == false){
                         cambioDeImagen(ocho, icono8, lblCuadrado8);
-                        break;
+                    } else {
+                        cambioDeNumero(ocho);
                     }
-                }  
+                    break;
+                }
+            }
+            System.out.println(aux);
         });
         
         timer.start();
@@ -249,7 +321,9 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(lblCuadrado8);
         contenedorppal.add(btnAdivinar);
         
+        btnAdivinar.requestFocus();
         btnAdivinar.addMouseListener(new manejadorEventos());  
+        btnAdivinar.addKeyListener(new manejadorEventos());
 
         cuadrosGraficar.add(uno);
         cuadrosGraficar.add(dos);
@@ -261,10 +335,28 @@ public class VentanaJuego extends JFrame{
         int lastImage = x.getImagen();
         x.setImagen();
         if(x.getImagen() == lastImage){
-            x.setImagenEx(lastImage);
+            x.setImagenF(lastImage+1);
         }
         iconx = new ImageIcon("src/Imagenes/ventanaJuego/" + x.getImagen() + ".PNG");
         lblx.setIcon(iconx);
+        reproducirSonido("cambio");
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 4);
+        lblx.setBorder(border);
+        borderTime = new Timer(juego.getTiempo()-200,null);
+        borderTime.addActionListener((ActionEvent t) -> {
+            lblx.setBorder(null);
+            borderTime.stop();
+        });
+        borderTime.start();
+        lastCuadrado = x;
+    }
+
+    public void cambioDeNumero(Cuadrado y){
+        int lastImage = y.getImagen();
+        y.setImagen();
+        if(y.getImagen() == lastImage){
+            y.setImagenEx(lastImage);
+        }
     }
 
     // Selecciona "aleatoriamente" un Cuadrado entre los no visibles, y lo vuelve visible, lo activa para el juego.
@@ -351,59 +443,235 @@ public class VentanaJuego extends JFrame{
         lblCuadrado7.setIcon(icono7);
         lblCuadrado8.setIcon(icono8);
 
+        btnAdivinar.requestFocus();
         timer.setDelay(juego.getTiempo());
         timer.start();
     }
 
+    public JLabel encontrarLabel(Cuadrado l){
+        JLabel labelAux = new JLabel();
+        switch(l.getNumero()){
+            case 1 -> {
+                labelAux = lblCuadrado1;
+                break;
+            }
+            case 2 -> {
+                labelAux = lblCuadrado2;
+                break;
+            }
+            case 3 -> {
+                labelAux = lblCuadrado3;
+                break;
+            }
+            case 4 -> {
+                labelAux = lblCuadrado4;
+                break;
+            }
+            case 5 -> {
+                labelAux = lblCuadrado5;
+                break;
+            }
+            case 6 -> {
+                labelAux = lblCuadrado6;
+                break;
+            }
+            case 7 -> {
+                labelAux = lblCuadrado7;
+                break;
+            }
+            case 8 -> {
+                labelAux = lblCuadrado8;
+                break;
+            }
+        }
+        return labelAux;
+    }
+    
+    public List<JLabel> iluminarCuadrados(boolean iguales){
+        borderTime.stop();
+        btnAdivinar.setVisible(false);
+        btnAdivinar.setBounds(0, 0, 100, 100);
+        int imagenBuscar = lastCuadrado.getImagen();
+        int lastIndex = cuadrosGraficar.indexOf(lastCuadrado);
+        Cuadrado cuadradoAux = lastCuadrado;
+        List<JLabel> listaLabels = new ArrayList<>();
+
+        cuadrosGraficar.remove(lastCuadrado);
+        for (Cuadrado cuadrado : cuadrosGraficar) {
+            if(imagenBuscar == cuadrado.getImagen()){
+                cuadradoAux = cuadrado;
+                break;
+            }           
+        }
+
+        cuadrosGraficar.add(lastIndex, lastCuadrado);
+
+        Border bordeVerde = BorderFactory.createLineBorder(Color.GREEN, 4);
+        Border bordeRojo = BorderFactory.createLineBorder(Color.RED, 4);
+
+        if(iguales == true){
+            encontrarLabel(lastCuadrado).setBorder(bordeVerde);
+            encontrarLabel(cuadradoAux).setBorder(bordeVerde);
+        } else {
+            encontrarLabel(lastCuadrado).setBorder(bordeRojo);
+            encontrarLabel(cuadradoAux).setBorder(bordeRojo);
+        }
+
+
+        listaLabels.add(encontrarLabel(lastCuadrado));
+        listaLabels.add(encontrarLabel(cuadradoAux));
+
+        return listaLabels;
+    }
+
+    public void apagarCuadros(List<JLabel> lista){
+        for(JLabel j : lista){
+            j.setBorder(null);
+        }
+    }
+
     // Cosas a realizar cuando hay una accion en el juego, y se determina que en este hay baldosas repetidas
     public void baldosasIguales(){
-        juego.setPuntuacion();
-        lblPuntuacion.setText(juego.getPuntuacion() + "");
-        juego.setAciertos();
-        juego.setNivel(juego.getNivel() + 1);
-        activar();
         timer.stop();
-        graficarDiferentes();
-        if(juego.getTiempo() > 500){
-            juego.setTiempo(juego.getTiempo() - 100);                
-        }
+        reproducirSonido("acierto");
+        final List<JLabel> listaLabels = iluminarCuadrados(true);
+        Timer restart = new Timer(2500, null);
+        restart.addActionListener((ActionEvent r) -> {
+            apagarCuadros(listaLabels);
+            btnAdivinar.setVisible(true);
+            btnAdivinar.setBounds(900, 350, 100, 100);
+            juego.setPuntuacion();
+            lblPuntuacion.setText(juego.getPuntuacion() + "");
+            juego.setAciertos();
+            juego.setNivel(juego.getNivel() + 1);
+            activar();
+            if(juego.getTiempo() > 700){
+                juego.setTiempo(juego.getTiempo() - 75);                
+            }
+
+            graficarDiferentes();
+            restart.stop();
+        });
+        restart.start();
     }
 
     // Cosas a realizar cuando hay una acción en el juego, y no hay baldosas repetidas
     public void baldosasDistintas(){
-        graficarDiferentes();
-        juego.disminuirVidas();
-        juego.errores();
-        juego.setTiempo(1500);
+        timer.stop();
+        reproducirSonido("error");
+        final List<JLabel> listaLabels = iluminarCuadrados(false);
+        Timer restart = new Timer(2500, null);
+        restart.addActionListener((ActionEvent r) -> {
+            apagarCuadros(listaLabels);
+            btnAdivinar.setVisible(true);
+            btnAdivinar.setBounds(900, 350, 100, 100);
+            juego.disminuirVidas();
+            juego.errores();
+            juego.setTiempo(1500);
+            graficarDiferentes();
+            if (juego.isHuboError()== true) {
+                switch (juego.getErrores()) {
+                    case 1 -> {
+                        btnVida3.setVisible(false);
+                    }
+                    case 2 -> {
+                        btnVida2.setVisible(false);
+                    }
+                    case 3 -> {
+                        btnVida1.setVisible(false);
+                        timer.stop();
+                        sonido.close();
+                        reproducirSonido("derrota");
+                        contenedorppal.removeAll();
+                        SwingUtilities.updateComponentTreeUI(contenedorppal);
+                        this.setContentPane(fondoFin);
+                        System.out.println("Fin del juego");
+                    }
+                }
+            }
 
-        if (juego.isHuboError()== true) {
-            switch (juego.getErrores()) {
-                case 1 -> {
-                    btnVida3.setVisible(false);
-                }
-                case 2 -> {
-                    btnVida2.setVisible(false);
-                }
-                case 3 -> {
-                    btnVida1.setVisible(false);
-                    timer.stop();
-                    System.out.println("Fin del juego");
-                }
+            restart.stop();
+        });
+        restart.start();
+    }
+
+    public void reproducirSonido(String cualSonido){
+        switch(cualSonido){
+            case "fondo" -> {
+            try {
+                sonido = AudioSystem.getClip();
+                sonido.open(AudioSystem.getAudioInputStream(new File("src\\Musica\\fondo.wav")));
+                sonido.start();
+    
+                sonido.loop(Clip.LOOP_CONTINUOUSLY);
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+                System.out.println("" + e);
+            }
+            }
+            case "cambio" -> play("src\\musica\\cambio.wav", juego.getTiempo()-100);
+            case "acierto" -> play("src\\musica\\acierto.wav", 2000);
+            case "error" -> play("src\\musica\\error.wav", 2000);
+            case "derrota" -> play("src\\musica\\derrota.wav", 2000);
+            default -> {
             }
         }
     }
+
+    void play(String filePath, int delay2) {
+        try {
+            Clip sonido2 = AudioSystem.getClip();
+            sonido2.open(AudioSystem.getAudioInputStream(new File(filePath)));
+            sonido2.start();
+            Timer timer2;
+            timer2 = new Timer(delay2, e -> { sonido2.close(); });
+            timer2.setRepeats(false);
+            timer2.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.out.println("" + e);
+        }
+    }
     
-    class manejadorEventos extends MouseAdapter{
+    class manejadorEventos extends MouseAdapter implements KeyListener{
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == btnAdivinar){
                 if (verificar() == true) {
+                    notClicked = false;
+                    Timer click = new Timer(juego.getTiempo(),null);
+                    click.addActionListener((ActionEvent cl) -> { apagar(); click.stop(); });
+                    click.start();
                     baldosasIguales();    
                 }else{
                     baldosasDistintas();
                 }
             }
         }
+
+        public void apagar(){
+            notClicked = true;
+            notPressed = true;
+        }
+
+        @Override
+        public void keyPressed(KeyEvent f) {
+            if(KeyEvent.VK_SPACE == f.getKeyCode()){
+                if (f.getSource() == btnAdivinar){
+                    if (verificar() == true) {
+                        notPressed = false;
+                        baldosasIguales();
+                        Timer click = new Timer(juego.getTiempo(),null);
+                        click.addActionListener((ActionEvent cl) -> { apagar(); click.stop(); });
+                        click.start();    
+                    }else{
+                        baldosasDistintas();
+                    }
+                }
+            } 
+        }  
+        @Override  
+        public void keyReleased(KeyEvent f) {} 
+        @Override   
+        public void keyTyped(KeyEvent f) {}   
     } 
 }
 
@@ -412,6 +680,17 @@ class fondoJuego extends JPanel{
     @Override
     public void paint(Graphics g) {
         imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoJuego.png")).getImage();
+        g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+        setOpaque(false);
+        super.paint(g);
+    }
+}
+
+class fondoFinJuego extends JPanel{
+    private Image imagen;
+    @Override
+    public void paint(Graphics g) {
+        imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoFin.png")).getImage();
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
         setOpaque(false);
         super.paint(g);

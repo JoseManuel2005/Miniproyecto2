@@ -97,8 +97,4 @@ public class Juego {
     public boolean isHuboError() {
         return huboError;
     }
-    
-    public void sonIguales(){
-           
-    }
 }
