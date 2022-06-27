@@ -63,6 +63,11 @@ public class VentanaJuego extends JFrame{
     private Cuadrado lastCuadrado;
     private Clip sonido;
     private Font fuentePuntuacion;
+    private ImageIcon fondoVidas;
+    
+    private JLabel lblvida1;
+    private JLabel lblvida2;
+    private JLabel lblvida3;
 
     
     Cuadrado uno = new Cuadrado(true);
@@ -109,23 +114,23 @@ public class VentanaJuego extends JFrame{
         
         lblCuadrado4 = new JLabel();
         lblCuadrado4.setBounds(325, 482, 130, 130);
-        lblCuadrado4.setVisible(true);
+        lblCuadrado4.setVisible(false);
         
         lblCuadrado5 = new JLabel();
         lblCuadrado5.setBounds(495, 265, 130, 130);
-        lblCuadrado5.setVisible(true);
+        lblCuadrado5.setVisible(false);
         
         lblCuadrado6 = new JLabel();
         lblCuadrado6.setBounds(627, 265, 130, 130);
-        lblCuadrado6.setVisible(true);
+        lblCuadrado6.setVisible(false);
         
         lblCuadrado7 = new JLabel();
         lblCuadrado7.setBounds(28, 265, 130, 130);
-        lblCuadrado7.setVisible(true);
+        lblCuadrado7.setVisible(false);
         
         lblCuadrado8 = new JLabel();
         lblCuadrado8.setBounds(160, 265, 130, 130);
-        lblCuadrado8.setVisible(true);
+        lblCuadrado8.setVisible(false);
        
         uno.setImagen();
         dos.setImagen();
@@ -287,34 +292,51 @@ public class VentanaJuego extends JFrame{
         
         timer.start();
 
-        ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/boton.PNG");
+        ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/record.PNG");
         
         btnAdivinar = new JButton();
         btnAdivinar.setBounds(600, 450, 130, 130);
         btnAdivinar.setIcon(new ImageIcon(ImgAdivinar.getImage().getScaledInstance(btnAdivinar.getWidth() , btnAdivinar.getHeight(), Image.SCALE_SMOOTH)));
-
+        btnAdivinar.setFocusPainted(false);
+        btnAdivinar.setBorderPainted(false);
+        btnAdivinar.setContentAreaFilled(false);
+        btnAdivinar.setAutoscrolls(true);
+        btnAdivinar.setBorder(null);
+        
+        fondoVidas = new ImageIcon("src/Imagenes/ventanaJuego/vida.PNG");
+        lblvida1 = new JLabel(fondoVidas);
+        lblvida1.setBounds(550, 20, 50, 50);
+        
+        lblvida2 = new JLabel(fondoVidas);
+        lblvida2.setBounds(610, 20, 50, 50);
+        
+        lblvida3 = new JLabel(fondoVidas);
+        lblvida3.setBounds(670, 20, 50, 50);
+        
+        /*
+        fondoVidas = new ImageIcon("src/Imagenes/ventanaJuego/vida.PNG");
         btnVida1 = new JButton();
         btnVida1.setEnabled(false);
-        btnVida1.setBackground(Color.green);
+        btnVida1.setIcon(fondoVidas);
         btnVida1.setBounds(550, 20, 50, 50);
       
         btnVida2 = new JButton();
         btnVida2.setEnabled(false);
-        btnVida2.setBackground(Color.green);
+        btnVida2.setIcon(fondoVidas);
         btnVida2.setBounds(610, 20, 50, 50);
         
         btnVida3 = new JButton();
         btnVida3.setEnabled(false);
-        btnVida3.setBackground(Color.green);
-        btnVida3.setBounds(670, 20, 50, 50);
+        btnVida3.setIcon(fondoVidas);
+        btnVida3.setBounds(670, 20, 50, 50);*/
         
         contenedorppal = getContentPane();
         contenedorppal.setLayout(null);
         
         contenedorppal.add(lblPuntuacion);
-        contenedorppal.add(btnVida1);
-        contenedorppal.add(btnVida2);
-        contenedorppal.add(btnVida3);
+        //contenedorppal.add(btnVida1);
+        //contenedorppal.add(btnVida2);
+        //contenedorppal.add(btnVida3);
         contenedorppal.add(lblCuadrado1);
         contenedorppal.add(lblCuadrado2);
         contenedorppal.add(lblCuadrado3);
@@ -324,6 +346,9 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(lblCuadrado7);
         contenedorppal.add(lblCuadrado8);
         contenedorppal.add(btnAdivinar);
+        contenedorppal.add(lblvida1);//
+        contenedorppal.add(lblvida2);//
+        contenedorppal.add(lblvida3);//
         
         btnAdivinar.requestFocus();
         btnAdivinar.addMouseListener(new manejadorEventos());  
@@ -577,13 +602,16 @@ public class VentanaJuego extends JFrame{
             if (juego.isHuboError()== true) {
                 switch (juego.getErrores()) {
                     case 1 -> {
-                        btnVida3.setVisible(false);
+                        //btnVida3.setVisible(false);
+                        lblvida3.setVisible(false);
                     }
                     case 2 -> {
-                        btnVida2.setVisible(false);
+                        //btnVida2.setVisible(false);
+                        lblvida2.setVisible(false);
                     }
                     case 3 -> {
-                        btnVida1.setVisible(false);
+                        //btnVida1.setVisible(false);
+                        lblvida1.setVisible(false);
                         timer.stop();
                         sonido.close();
                         reproducirSonido("derrota");
