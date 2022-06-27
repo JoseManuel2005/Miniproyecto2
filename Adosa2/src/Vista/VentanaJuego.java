@@ -117,6 +117,8 @@ public class VentanaJuego extends JFrame{
         boolean repetir = true;
         int auxiliar;
         Random k = new Random();
+
+        // Cambia los 3 cuadros que se muestran al iniciar el juego si estos estan repetidos
         while(repetir == true){
             if(x == y || x == z || y == z){
                 auxiliar = 0 + k.nextInt((2 - 0) + 1);
@@ -167,6 +169,7 @@ public class VentanaJuego extends JFrame{
         timer = new Timer(juego.getTiempo(), null);
         timer.setInitialDelay(juego.getTiempo());
 
+        // Selecciona un Cuadrado de entre los visibles, aleatoriamente, y llama a una funcion que cambia su imagen
         timer.addActionListener((ActionEvent e) -> {
                 Random r = new Random();
                 int aux = (int)(r.nextDouble()*(2+juego.getNivel()));
@@ -253,6 +256,7 @@ public class VentanaJuego extends JFrame{
         cuadrosGraficar.add(tres);
     }
 
+    // Recibe un cuadrado, cambia su imagen, asi como el icono del Label, evitando a toda costa que esta se repita
     public void cambioDeImagen(Cuadrado x, Icon iconx, JLabel lblx){
         int lastImage = x.getImagen();
         x.setImagen();
@@ -263,6 +267,7 @@ public class VentanaJuego extends JFrame{
         lblx.setIcon(iconx);
     }
 
+    // Selecciona "aleatoriamente" un Cuadrado entre los no visibles, y lo vuelve visible, lo activa para el juego.
     public void activar(){
         int listLength = cuadrosRestantes.size();
         if(listLength != 0){
@@ -300,6 +305,9 @@ public class VentanaJuego extends JFrame{
         }
     }
 
+    /* Se obtiene una lista con el numero de Imagen de cada Cuadrado, se genera un HashSet de esta lista, 
+    y este pasara a ser su valor. Si el tamaño inicial y final de la lista son diferentes, significa que hubo
+    un elemento repetido */
     public boolean verificar(){
         imagenesCuadros = juego.getNumeroCuadros(cuadrosGraficar);
         int size0 = imagenesCuadros.size();
@@ -310,6 +318,7 @@ public class VentanaJuego extends JFrame{
         return size0 != sizef;
     }
 
+    // Cambia la imagen de cada Cuadrado, evitando que alguna de estas se repita.
     public void graficarDiferentes(){
         indexGraficables.removeAll(indexGraficables);
         for (int i = 0; i < 16; i++) {
@@ -346,6 +355,7 @@ public class VentanaJuego extends JFrame{
         timer.start();
     }
 
+    // Cosas a realizar cuando hay una accion en el juego, y se determina que en este hay baldosas repetidas
     public void baldosasIguales(){
         juego.setPuntuacion();
         lblPuntuacion.setText(juego.getPuntuacion() + "");
@@ -359,6 +369,7 @@ public class VentanaJuego extends JFrame{
         }
     }
 
+    // Cosas a realizar cuando hay una acción en el juego, y no hay baldosas repetidas
     public void baldosasDistintas(){
         graficarDiferentes();
         juego.disminuirVidas();
