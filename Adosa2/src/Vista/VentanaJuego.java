@@ -43,13 +43,10 @@ public class VentanaJuego extends JFrame{
     private ImageIcon icono6;
     private ImageIcon icono7;
     private ImageIcon icono8;
-    private int nivel = 1;
-    private int temp = 1500;
-    private final List<Integer> pruebas = new ArrayList<>();
-    private final List<Integer> restantes = new ArrayList<>();
-    private List<Integer> imagenes = new ArrayList<>();
-    private final List<Integer> indexD = new ArrayList<>();
-    private final List<Cuadrado> aGraficar = new ArrayList<>();
+    private final List<Integer> cuadrosRestantes = new ArrayList<>();
+    private final List<Integer> indexGraficables = new ArrayList<>();
+    private final List<Cuadrado> cuadrosGraficar = new ArrayList<>();
+    private List<Integer> imagenesCuadros = new ArrayList<>();
     private Timer timer;
     
     Cuadrado uno = new Cuadrado(true);
@@ -161,18 +158,18 @@ public class VentanaJuego extends JFrame{
         lblCuadrado7.setIcon(icono7);
         lblCuadrado8.setIcon(icono8);
 
-        restantes.add(4);
-        restantes.add(5);
-        restantes.add(6);
-        restantes.add(7);
-        restantes.add(8);
+        cuadrosRestantes.add(4);
+        cuadrosRestantes.add(5);
+        cuadrosRestantes.add(6);
+        cuadrosRestantes.add(7);
+        cuadrosRestantes.add(8);
 
-        timer = new Timer(temp, null);
-        timer.setInitialDelay(temp);
+        timer = new Timer(juego.getTiempo(), null);
+        timer.setInitialDelay(juego.getTiempo());
 
         timer.addActionListener((ActionEvent e) -> {
                 Random r = new Random();
-                int aux = (int)(r.nextDouble()*(nivel+2));
+                int aux = (int)(r.nextDouble()*(2+juego.getNivel()));
                 switch (aux) {
                     case 0 -> {
                         cambioDeImagen(uno, icono1, lblCuadrado1);
@@ -251,9 +248,9 @@ public class VentanaJuego extends JFrame{
         
         btnAdivinar.addMouseListener(new manejadorEventos());  
 
-        aGraficar.add(uno);
-        aGraficar.add(dos);
-        aGraficar.add(tres);
+        cuadrosGraficar.add(uno);
+        cuadrosGraficar.add(dos);
+        cuadrosGraficar.add(tres);
     }
 
     public void cambioDeImagen(Cuadrado x, Icon iconx, JLabel lblx){
@@ -267,67 +264,64 @@ public class VentanaJuego extends JFrame{
     }
 
     public void activar(){
-        int listLength = restantes.size();
+        int listLength = cuadrosRestantes.size();
         if(listLength != 0){
             Random r = new Random();
             int index = (int)(r.nextDouble()*(listLength-1));
-            int aux = restantes.get(index);
+            int aux = cuadrosRestantes.get(index);
             switch(aux){
                 case 4 -> {
                     lblCuadrado4.setVisible(true);
-                    aGraficar.add(cuatro);
+                    cuadrosGraficar.add(cuatro);
                     break;
                 }
                 case 5 -> {
                     lblCuadrado5.setVisible(true);
-                    aGraficar.add(cinco);
+                    cuadrosGraficar.add(cinco);
                     break;
                 }
                 case 6 -> {
                     lblCuadrado6.setVisible(true);
-                    aGraficar.add(seis);
+                    cuadrosGraficar.add(seis);
                     break;
                 }
                 case 7 -> {
                     lblCuadrado7.setVisible(true);
-                    aGraficar.add(siete);
+                    cuadrosGraficar.add(siete);
                     break;
                 }
                 case 8 -> {
                     lblCuadrado8.setVisible(true);
-                    aGraficar.add(ocho);
+                    cuadrosGraficar.add(ocho);
                     break;
                 }
             }
-        restantes.remove(index);
+        cuadrosRestantes.remove(index);
         }
     }
 
     public boolean verificar(){
-        imagenes = juego.getNumeroCuadros(aGraficar);
-        System.out.println("imagenes "+imagenes);
-        int size0 = imagenes.size();
-        Set<Integer> hashSet = new HashSet<>(imagenes);
-        imagenes.clear();
-        imagenes.addAll(hashSet);
-        int sizef = imagenes.size();
+        imagenesCuadros = juego.getNumeroCuadros(cuadrosGraficar);
+        int size0 = imagenesCuadros.size();
+        Set<Integer> hashSet = new HashSet<>(imagenesCuadros);
+        imagenesCuadros.clear();
+        imagenesCuadros.addAll(hashSet);
+        int sizef = imagenesCuadros.size();
         return size0 != sizef;
     }
 
     public void graficarDiferentes(){
-        indexD.removeAll(indexD);
+        indexGraficables.removeAll(indexGraficables);
         for (int i = 0; i < 16; i++) {
-            indexD.add(i);
+            indexGraficables.add(i);
         }
 
-        pruebas.removeAll(pruebas);
-        for(Cuadrado x : aGraficar){
+        for(Cuadrado x : cuadrosGraficar){
             Random r = new Random();
-            int index = (int)(r.nextDouble()*indexD.size()-1);
-            int aux = indexD.get(index);
+            int index = (int)(r.nextDouble()*indexGraficables.size()-1);
+            int aux = indexGraficables.get(index);
             x.setImagenF(aux);
-            indexD.remove(index);
-            pruebas.add(aux);
+            indexGraficables.remove(index);
         }
 
         icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
@@ -348,8 +342,7 @@ public class VentanaJuego extends JFrame{
         lblCuadrado7.setIcon(icono7);
         lblCuadrado8.setIcon(icono8);
 
-        System.out.println("pruebas :"+pruebas);
-        timer.setDelay(temp);
+        timer.setDelay(juego.getTiempo());
         timer.start();
     }
 
@@ -357,13 +350,12 @@ public class VentanaJuego extends JFrame{
         juego.setPuntuacion();
         lblPuntuacion.setText(juego.getPuntuacion() + "");
         juego.setAciertos();
-        nivel += 1;
+        juego.setNivel(juego.getNivel() + 1);
         activar();
         timer.stop();
-        System.out.println(timer.getDelay());
         graficarDiferentes();
-        if(temp > 500){
-            temp -= 100;                
+        if(juego.getTiempo() > 500){
+            juego.setTiempo(juego.getTiempo() - 100);                
         }
     }
 
@@ -371,7 +363,7 @@ public class VentanaJuego extends JFrame{
         graficarDiferentes();
         juego.disminuirVidas();
         juego.errores();
-        temp = 1500;
+        juego.setTiempo(1500);
 
         if (juego.isHuboError()== true) {
             switch (juego.getErrores()) {

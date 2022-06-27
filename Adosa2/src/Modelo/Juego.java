@@ -16,6 +16,8 @@ public class Juego {
     private int aciertos;
     private int errores;
     private int vidas;
+    private int nivel;
+    private int tiempo;
     private final boolean cuadrosIguales;
     private boolean huboError;
     private List<Integer> numerosC = new ArrayList<Integer>();  
@@ -25,6 +27,8 @@ public class Juego {
         aciertos = 0;
         errores = 0;
         vidas = 3;
+        nivel = 1;
+        tiempo = 1500;
         cuadrosIguales = false;
         huboError = false;
     }
@@ -49,6 +53,14 @@ public class Juego {
         return vidas;
     }
 
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
     public List getNumeroCuadros(List<Cuadrado> cuadros) {
         numerosC.removeAll(numerosC);
         for(int i = 0; i < cuadros.size(); i++){
@@ -63,6 +75,14 @@ public class Juego {
 
     public void setAciertos() {
         aciertos++;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
     }
 
     public void errores() {
