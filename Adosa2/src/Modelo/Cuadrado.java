@@ -19,7 +19,7 @@ public class Cuadrado {
 
     public void setImagen() {
         Random r = new Random();
-        imagen = (int)(r.nextDouble()*8);
+        imagen = (int)(r.nextDouble()*16);
     }
 
     /* Se llama a la funcion con el numero de imagen que desea que NO se repita. Crea un arreglo sin ese valor,
