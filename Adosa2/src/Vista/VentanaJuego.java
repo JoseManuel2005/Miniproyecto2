@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import Modelo.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 import java.util.List;
 import java.util.Set;
 
@@ -45,15 +45,12 @@ public class VentanaJuego extends JFrame{
     private ImageIcon icono8;
     private int nivel = 1;
     private int temp = 1500;
-    private List<Integer> restantes = new ArrayList<Integer>();
-    private List<Integer> imagenes = new ArrayList<Integer>();
-    private List<Integer> indexD = new ArrayList<Integer>();
-    private List<Cuadrado> cuadros = new ArrayList<Cuadrado>();
-    private List<Cuadrado> aGraficar = new ArrayList<Cuadrado>();
-    private Timer timer = new Timer();
-    private TimerTask task;
-    private JButton btnPrueba;
-    private Font fuentePuntuacion;
+    private final List<Integer> pruebas = new ArrayList<>();
+    private final List<Integer> restantes = new ArrayList<>();
+    private List<Integer> imagenes = new ArrayList<>();
+    private final List<Integer> indexD = new ArrayList<>();
+    private final List<Cuadrado> aGraficar = new ArrayList<>();
+    private Timer timer;
     
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
@@ -73,56 +70,71 @@ public class VentanaJuego extends JFrame{
     public VentanaJuego()  {
         this.setContentPane(fondo);
         iniciarComponentes();
-        setSize(800,680);
+        setSize(1100,600);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void iniciarComponentes(){
-        fuentePuntuacion = new Font("JHUF",Font.PLAIN, 20);
-        
         lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); //Modificar esto
-        lblPuntuacion.setFont(fuentePuntuacion);
-        lblPuntuacion.setBounds(10, 10, 500, 20);
+        lblPuntuacion.setBounds(10, 10, 100, 20);
         lblPuntuacion.setForeground(Color.white);
         
         lblCuadrado1 = new JLabel();       
-        lblCuadrado1.setBounds(325, 50, 130, 130);
+        lblCuadrado1.setBounds(500, 50, 100, 100);
        
         lblCuadrado2 = new JLabel();
-        lblCuadrado2.setBounds(325, 182, 130, 130);
+        lblCuadrado2.setBounds(500, 150, 100, 100);
         
         lblCuadrado3 = new JLabel();
-        lblCuadrado3.setBounds(325, 330, 130, 130);
+        lblCuadrado3.setBounds(500, 280, 100, 100);
         
         lblCuadrado4 = new JLabel();
-        lblCuadrado4.setBounds(325, 462, 130, 130);
+        lblCuadrado4.setBounds(500, 380, 100, 100);
         lblCuadrado4.setVisible(false);
         
         lblCuadrado5 = new JLabel();
-        lblCuadrado5.setBounds(465, 256, 130, 130);
+        lblCuadrado5.setBounds(610, 215, 100, 100);
         lblCuadrado5.setVisible(false);
         
         lblCuadrado6 = new JLabel();
-        lblCuadrado6.setBounds(597, 256, 130, 130);
+        lblCuadrado6.setBounds(710, 215, 100, 100);
         lblCuadrado6.setVisible(false);
         
         lblCuadrado7 = new JLabel();
-        lblCuadrado7.setBounds(50, 256, 130, 130);
+        lblCuadrado7.setBounds(390, 215, 100, 100);
         lblCuadrado7.setVisible(false);
         
         lblCuadrado8 = new JLabel();
-        lblCuadrado8.setBounds(182, 256, 130, 130);
+        lblCuadrado8.setBounds(290, 215, 100, 100);
         lblCuadrado8.setVisible(false);
        
         uno.setImagen();
-        icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
-
         dos.setImagen();
-        icono2 = new ImageIcon("src/Imagenes/ventanaJuego/" + dos.getImagen() + ".PNG");
-
         tres.setImagen();
+
+        int x = uno.getImagen();
+        int y = dos.getImagen();
+        int z = tres.getImagen();
+        boolean repetir = true;
+        int auxiliar;
+        Random k = new Random();
+        while(repetir == true){
+            if(x == y || x == z || y == z){
+                auxiliar = 0 + k.nextInt((2 - 0) + 1);
+                uno.setImagenF(auxiliar);
+                auxiliar = 4 + k.nextInt((7 - 4) + 1);
+                dos.setImagenF(auxiliar);
+                auxiliar = 9 + k.nextInt((10 - 9) + 1);
+                tres.setImagenF(auxiliar);
+            } else {
+                repetir = false;
+            }
+        }
+
+        icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
+        icono2 = new ImageIcon("src/Imagenes/ventanaJuego/" + dos.getImagen() + ".PNG");
         icono3 = new ImageIcon("src/Imagenes/ventanaJuego/" + tres.getImagen() + ".PNG");
 
         cuatro.setImagen();
@@ -154,11 +166,11 @@ public class VentanaJuego extends JFrame{
         restantes.add(6);
         restantes.add(7);
         restantes.add(8);
-        
-        task = new TimerTask() {
-            @Override
-            
-            public void run() {
+
+        timer = new Timer(temp, null);
+        timer.setInitialDelay(temp);
+
+        timer.addActionListener((ActionEvent e) -> {
                 Random r = new Random();
                 int aux = (int)(r.nextDouble()*(nivel+2));
                 switch (aux) {
@@ -194,35 +206,31 @@ public class VentanaJuego extends JFrame{
                         cambioDeImagen(ocho, icono8, lblCuadrado8);
                         break;
                     }
-                }
-            }            
-        };
+                }  
+        });
         
-        timer.scheduleAtFixedRate(task, 0, temp);
+        timer.start();
 
         ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/boton.PNG");
         
         btnAdivinar = new JButton();
-        btnAdivinar.setBounds(600, 450, 130, 130);
+        btnAdivinar.setBounds(900, 350, 100, 100);
         btnAdivinar.setIcon(new ImageIcon(ImgAdivinar.getImage().getScaledInstance(btnAdivinar.getWidth() , btnAdivinar.getHeight(), Image.SCALE_SMOOTH)));
-        btnAdivinar.setFocusPainted(false);
-        btnAdivinar.setBorderPainted(false);
-        btnAdivinar.setContentAreaFilled(false);
 
         btnVida1 = new JButton();
         btnVida1.setEnabled(false);
         btnVida1.setBackground(Color.green);
-        btnVida1.setBounds(550, 20, 50, 50);
+        btnVida1.setBounds(900, 20, 30, 30);
       
         btnVida2 = new JButton();
         btnVida2.setEnabled(false);
         btnVida2.setBackground(Color.green);
-        btnVida2.setBounds(610, 20, 50, 50);
+        btnVida2.setBounds(950, 20, 30, 30);
         
         btnVida3 = new JButton();
         btnVida3.setEnabled(false);
         btnVida3.setBackground(Color.green);
-        btnVida3.setBounds(670, 20, 50, 50);
+        btnVida3.setBounds(1000, 20, 30, 30);
         
         contenedorppal = getContentPane();
         contenedorppal.setLayout(null);
@@ -239,8 +247,13 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(lblCuadrado6);
         contenedorppal.add(lblCuadrado7);
         contenedorppal.add(lblCuadrado8);
-        contenedorppal.add(btnAdivinar);     
+        contenedorppal.add(btnAdivinar);
+        
         btnAdivinar.addMouseListener(new manejadorEventos());  
+
+        aGraficar.add(uno);
+        aGraficar.add(dos);
+        aGraficar.add(tres);
     }
 
     public void cambioDeImagen(Cuadrado x, Icon iconx, JLabel lblx){
@@ -262,22 +275,27 @@ public class VentanaJuego extends JFrame{
             switch(aux){
                 case 4 -> {
                     lblCuadrado4.setVisible(true);
+                    aGraficar.add(cuatro);
                     break;
                 }
                 case 5 -> {
                     lblCuadrado5.setVisible(true);
+                    aGraficar.add(cinco);
                     break;
                 }
                 case 6 -> {
                     lblCuadrado6.setVisible(true);
+                    aGraficar.add(seis);
                     break;
                 }
                 case 7 -> {
                     lblCuadrado7.setVisible(true);
+                    aGraficar.add(siete);
                     break;
                 }
                 case 8 -> {
                     lblCuadrado8.setVisible(true);
+                    aGraficar.add(ocho);
                     break;
                 }
             }
@@ -286,28 +304,8 @@ public class VentanaJuego extends JFrame{
     }
 
     public boolean verificar(){
-        cuadros.removeAll(cuadros);
-        cuadros.add(uno);
-        cuadros.add(dos);
-        cuadros.add(tres);
-        cuadros.add(cuatro);
-        cuadros.add(cinco);
-        cuadros.add(seis);
-        cuadros.add(siete);
-        cuadros.add(ocho);
-        imagenes = juego.getNumeroCuadros(cuadros);
-        if(nivel < 6){
-            while(nivel + 2 != imagenes.size()){
-                int length = imagenes.size();
-                imagenes.remove(length-1);
-            }
-        } else {
-            while(8 != imagenes.size()){
-                int length = imagenes.size();
-                imagenes.remove(length-1);
-            }
-        }
-        System.out.println(imagenes);
+        imagenes = juego.getNumeroCuadros(aGraficar);
+        System.out.println("imagenes "+imagenes);
         int size0 = imagenes.size();
         Set<Integer> hashSet = new HashSet<>(imagenes);
         imagenes.clear();
@@ -318,19 +316,18 @@ public class VentanaJuego extends JFrame{
 
     public void graficarDiferentes(){
         indexD.removeAll(indexD);
-        indexD.add(0); indexD.add(1); indexD.add(2); indexD.add(3); indexD.add(4); indexD.add(5); indexD.add(6); indexD.add(7);
-        if(nivel < 5){
-            while(nivel + 3 != cuadros.size()){
-                int length = cuadros.size();
-                cuadros.remove(length-1);
-            }
+        for (int i = 0; i < 16; i++) {
+            indexD.add(i);
         }
-        for(Cuadrado x : cuadros){
+
+        pruebas.removeAll(pruebas);
+        for(Cuadrado x : aGraficar){
             Random r = new Random();
             int index = (int)(r.nextDouble()*indexD.size()-1);
             int aux = indexD.get(index);
             x.setImagenF(aux);
             indexD.remove(index);
+            pruebas.add(aux);
         }
 
         icono1 = new ImageIcon("src/Imagenes/ventanaJuego/" + uno.getImagen() + ".PNG");
@@ -351,9 +348,46 @@ public class VentanaJuego extends JFrame{
         lblCuadrado7.setIcon(icono7);
         lblCuadrado8.setIcon(icono8);
 
-        timer = new Timer();
-        TimerTask task2 = task;
-        timer.scheduleAtFixedRate(task2, 0, temp);
+        System.out.println("pruebas :"+pruebas);
+        timer.setDelay(temp);
+        timer.start();
+    }
+
+    public void baldosasIguales(){
+        juego.setPuntuacion();
+        lblPuntuacion.setText(juego.getPuntuacion() + "");
+        juego.setAciertos();
+        nivel += 1;
+        activar();
+        timer.stop();
+        System.out.println(timer.getDelay());
+        graficarDiferentes();
+        if(temp > 500){
+            temp -= 100;                
+        }
+    }
+
+    public void baldosasDistintas(){
+        graficarDiferentes();
+        juego.disminuirVidas();
+        juego.errores();
+        temp = 1500;
+
+        if (juego.isHuboError()== true) {
+            switch (juego.getErrores()) {
+                case 1 -> {
+                    btnVida3.setVisible(false);
+                }
+                case 2 -> {
+                    btnVida2.setVisible(false);
+                }
+                case 3 -> {
+                    btnVida1.setVisible(false);
+                    timer.stop();
+                    System.out.println("Fin del juego");
+                }
+            }
+        }
     }
     
     class manejadorEventos extends MouseAdapter{
@@ -361,50 +395,22 @@ public class VentanaJuego extends JFrame{
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == btnAdivinar){
                 if (verificar() == true) {
-                    juego.setPuntuacion();
-                    lblPuntuacion.setText(juego.getPuntuacion() + "");
-                    juego.setAciertos();
-                    nivel += 1;
-                    activar();
-                    timer.cancel();
-                    timer.purge();
-                    graficarDiferentes();
-                    if(temp > 800){
-                        temp -= 100;                
-                    }
+                    baldosasIguales();    
                 }else{
-                    graficarDiferentes();
-                    juego.disminuirVidas();
-                    juego.errores();
-                    
-                    if (juego.isHuboError()== true) {
-                        switch (juego.getErrores()) {
-                            case 1 -> {
-                                btnVida3.setVisible(false);
-                            }
-                            case 2 -> {
-                                btnVida2.setVisible(false);
-                            }
-                            case 3 -> {
-                                btnVida1.setVisible(false);
-                            }
-                        }
-                    }
+                    baldosasDistintas();
                 }
             }
         }
     } 
 }
 
-    class fondoJuego extends JPanel{
-        private Image imagen;
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoJuego.png")).getImage();
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-            setOpaque(false);
-            super.paint(g);
-        }
-
+class fondoJuego extends JPanel{
+    private Image imagen;
+    @Override
+    public void paint(Graphics g) {
+        imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoJuego.png")).getImage();
+        g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+        setOpaque(false);
+        super.paint(g);
+    }
 }
-

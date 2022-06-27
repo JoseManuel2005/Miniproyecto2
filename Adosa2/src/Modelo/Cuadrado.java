@@ -25,10 +25,10 @@ public class Cuadrado {
     /* Se llama a la funcion con el numero de imagen que desea que NO se repita. Crea un arreglo sin ese valor,
 *   y selecciona un número aleatorio de este con ayuda de un Random */
     public void setImagenEx(int nEx) {
-        int numeros[] = {0,1,2,3,4,5,6,7};
+        int numeros[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
         int numerosEx[] = remueveElemento(numeros, nEx);
         Random r = new Random();
-        imagen = numerosEx[(int)(r.nextDouble()*7)];
+        imagen = numerosEx[(int)(r.nextDouble()*16)];
     }
 
     // Coloca como imagen el entero que recibe como parametro
