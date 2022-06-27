@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Vista.Instrucciones;
+package Vista;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -22,16 +22,17 @@ public class VentanaInstrucciones1 extends JFrame {
     
     public VentanaInstrucciones1() {
         iniciarComponentes();
-        setSize(500,400);
+        setSize(600,400);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     private void iniciarComponentes(){
-        txtInstruccion1 = new JTextArea("Hola");
+        txtInstruccion1 = new JTextArea("En el transcurso del juego apareceran varias baldosas, cada una con un diseño diferente\n" 
+                + "el borde azul te indica que el cuadro acaba de cambiar su diseño");
         txtInstruccion1.setEditable(false);
         //txtInstruccion1.setEnabled(false);
-        txtInstruccion1.setBounds(50, 200, 100, 100);
+        txtInstruccion1.setBounds(50, 200, 500, 500);
         lblImagen = new JLabel("Aqui va la imagen");
         lblImagen.setBounds(150, 60, 100, 100);
         lblPagina = new JLabel("1/4 (borrar)");

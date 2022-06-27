@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import Vista.Instrucciones.VentanaInstrucciones1;
 
 /**
  * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaInicio.java, Autores (Grupo 01 POE): 
@@ -49,8 +48,8 @@ public class VentanaInicio extends JFrame{
         btnComoJugar.setContentAreaFilled(false);
         btnComoJugar.setAutoscrolls(true);
         btnComoJugar.setBorder(null);
-        btnComoJugar.setPressedIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarp.png")));
-        btnComoJugar.setRolloverIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarr.png")));
+        //btnComoJugar.setPressedIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarp.png")));
+        //btnComoJugar.setRolloverIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarr.png")));
          
         btnJugar = new JButton("Jugar");
         btnJugar.setBounds(380, 380, 238, 77);
