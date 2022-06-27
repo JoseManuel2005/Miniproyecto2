@@ -23,7 +23,10 @@ public class VentanaInicio extends JFrame{
     private ImageIcon fondoJugar;
     private ImageIcon fondoComoJugar; 
     private ImageIcon fondoUtilidad; 
-
+    private ImageIcon fondoPresionadoJugar; 
+    private ImageIcon fondoPresionadoUtilidad; 
+    private ImageIcon fondoPresionadoComoJugar; 
+    
     public VentanaInicio(){
         this.setContentPane(imagenFondo);
         iniciarComponentes();
@@ -39,10 +42,14 @@ public class VentanaInicio extends JFrame{
         fondoJugar = new ImageIcon("src/Imagenes/botones/jugar.png");
         fondoComoJugar = new ImageIcon("src/Imagenes/botones/comoJugar.png");
         fondoUtilidad = new ImageIcon("src/Imagenes/botones/paraQueSirve.png");
+        fondoPresionadoJugar = new ImageIcon("src/Imagenes/botones/jugarPresionado.png");
+        fondoPresionadoComoJugar = new ImageIcon("src/Imagenes/botones/comoJugarPresionado.png");
+        fondoPresionadoUtilidad = new ImageIcon("src/Imagenes/botones/utilidadPresionado.png");
         
         btnComoJugar = new JButton("¿Como Jugar?");
         btnComoJugar.setBounds(50, 350, 280, 148);
         btnComoJugar.setIcon(new ImageIcon(fondoComoJugar.getImage().getScaledInstance(btnComoJugar.getWidth() , btnComoJugar.getHeight(), Image.SCALE_SMOOTH)));
+        btnComoJugar.setRolloverIcon(new ImageIcon(fondoPresionadoComoJugar.getImage().getScaledInstance(btnComoJugar.getWidth() , btnComoJugar.getHeight(), Image.SCALE_SMOOTH)));
         btnComoJugar.setFocusPainted(false);
         btnComoJugar.setBorderPainted(false);
         btnComoJugar.setContentAreaFilled(false);
@@ -54,6 +61,8 @@ public class VentanaInicio extends JFrame{
         btnJugar = new JButton("Jugar");
         btnJugar.setBounds(380, 380, 238, 77);
         btnJugar.setIcon(new ImageIcon(fondoJugar.getImage().getScaledInstance(btnJugar.getWidth() , btnJugar.getHeight(), Image.SCALE_SMOOTH)));
+        btnJugar.setRolloverIcon(new ImageIcon(fondoPresionadoJugar.getImage().getScaledInstance(btnJugar.getWidth() , btnJugar.getHeight(), Image.SCALE_SMOOTH)));
+        //btnJugar.setPressedIcon(fondoPresionadoJugar);
         btnJugar.setFocusPainted(false);
         btnJugar.setBorderPainted(false);
         btnJugar.setContentAreaFilled(false);
@@ -61,6 +70,7 @@ public class VentanaInicio extends JFrame{
         btnUtilidad = new JButton("Para que sirve");
         btnUtilidad.setBounds(668, 350, 378, 148);
         btnUtilidad.setIcon(new ImageIcon(fondoUtilidad.getImage().getScaledInstance(btnUtilidad.getWidth() , btnUtilidad.getHeight(), Image.SCALE_SMOOTH)));
+        btnUtilidad.setRolloverIcon(new ImageIcon(fondoPresionadoUtilidad.getImage().getScaledInstance(btnUtilidad.getWidth() , btnUtilidad.getHeight(), Image.SCALE_SMOOTH)));
         btnUtilidad.setFocusPainted(false);
         btnUtilidad.setBorderPainted(false);
         btnUtilidad.setContentAreaFilled(false);

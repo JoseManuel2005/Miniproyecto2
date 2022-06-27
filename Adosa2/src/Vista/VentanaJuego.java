@@ -44,6 +44,7 @@ public class VentanaJuego extends JFrame{
     private JLabel lblCuadrado8;
     private JButton btnAdivinar;
     private ImageIcon ImgAdivinar;
+    private ImageIcon ImgAdivinarPresionado;
     private ImageIcon icono1;
     private ImageIcon icono2;
     private ImageIcon icono3;
@@ -292,11 +293,14 @@ public class VentanaJuego extends JFrame{
         
         timer.start();
 
-        ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/record.PNG");
+        ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/boton.PNG");
+        ImgAdivinarPresionado = new ImageIcon("src/Imagenes/ventanaJuego/botonPresionado.PNG");
+
         
         btnAdivinar = new JButton();
         btnAdivinar.setBounds(600, 450, 130, 130);
         btnAdivinar.setIcon(new ImageIcon(ImgAdivinar.getImage().getScaledInstance(btnAdivinar.getWidth() , btnAdivinar.getHeight(), Image.SCALE_SMOOTH)));
+        btnAdivinar.setPressedIcon(new ImageIcon(ImgAdivinarPresionado.getImage().getScaledInstance(btnAdivinar.getWidth() , btnAdivinar.getHeight(), Image.SCALE_SMOOTH)));
         btnAdivinar.setFocusPainted(false);
         btnAdivinar.setBorderPainted(false);
         btnAdivinar.setContentAreaFilled(false);
