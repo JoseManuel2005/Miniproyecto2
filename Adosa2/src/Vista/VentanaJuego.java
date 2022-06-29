@@ -69,8 +69,7 @@ public class VentanaJuego extends JFrame{
     private JLabel lblvida1;
     private JLabel lblvida2;
     private JLabel lblvida3;
-
-    
+   
     Cuadrado uno = new Cuadrado(true);
     Cuadrado dos = new Cuadrado(true);
     Cuadrado tres = new Cuadrado(true);
@@ -99,38 +98,38 @@ public class VentanaJuego extends JFrame{
     private void iniciarComponentes(){
         reproducirSonido("fondo");
         fuentePuntuacion = new Font("JHUF",Font.PLAIN, 20);
-        lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); //Modificar esto
+        lblPuntuacion = new JLabel("Puntuacion "  + 0 + juego.getPuntuacion()); 
         lblPuntuacion.setBounds(10, 10, 300, 20);
         lblPuntuacion.setForeground(Color.white);
         lblPuntuacion.setFont(fuentePuntuacion);
         
         lblCuadrado1 = new JLabel();       
-        lblCuadrado1.setBounds(325, 50, 130, 130);
+        lblCuadrado1.setBounds(327, 25, 130, 130);
        
         lblCuadrado2 = new JLabel();
-        lblCuadrado2.setBounds(325, 182, 130, 130);
+        lblCuadrado2.setBounds(327, 175, 130, 130);
         
         lblCuadrado3 = new JLabel();
-        lblCuadrado3.setBounds(325, 350, 130, 130);
+        lblCuadrado3.setBounds(327, 355, 130, 130);
         
         lblCuadrado4 = new JLabel();
-        lblCuadrado4.setBounds(325, 482, 130, 130);
+        lblCuadrado4.setBounds(327, 505, 130, 130);
         lblCuadrado4.setVisible(false);
         
         lblCuadrado5 = new JLabel();
-        lblCuadrado5.setBounds(495, 265, 130, 130);
+        lblCuadrado5.setBounds(500, 265, 130, 130);
         lblCuadrado5.setVisible(false);
         
         lblCuadrado6 = new JLabel();
-        lblCuadrado6.setBounds(627, 265, 130, 130);
+        lblCuadrado6.setBounds(640, 265, 130, 130);
         lblCuadrado6.setVisible(false);
         
         lblCuadrado7 = new JLabel();
-        lblCuadrado7.setBounds(28, 265, 130, 130);
+        lblCuadrado7.setBounds(15, 265, 130, 130);
         lblCuadrado7.setVisible(false);
         
         lblCuadrado8 = new JLabel();
-        lblCuadrado8.setBounds(160, 265, 130, 130);
+        lblCuadrado8.setBounds(155, 265, 130, 130);
         lblCuadrado8.setVisible(false);
        
         uno.setImagen();
@@ -353,7 +352,7 @@ public class VentanaJuego extends JFrame{
         contenedorppal.add(lblvida1);//
         contenedorppal.add(lblvida2);//
         contenedorppal.add(lblvida3);//
-        
+               
         btnAdivinar.requestFocus();
         btnAdivinar.addMouseListener(new manejadorEventos());  
         btnAdivinar.addKeyListener(new manejadorEventos());
@@ -621,8 +620,13 @@ public class VentanaJuego extends JFrame{
                         reproducirSonido("derrota");
                         contenedorppal.removeAll();
                         SwingUtilities.updateComponentTreeUI(contenedorppal);
-                        this.setContentPane(fondoFin);
+                        //this.setContentPane(fondoFin);
+                        VentanaPerder estadisiticas = new VentanaPerder(juego);
+                        dispose();
+                        //this.setContentPane(fondoFin);
                         System.out.println("Fin del juego");
+                        
+                            
                     }
                 }
             }
@@ -725,8 +729,12 @@ class fondoJuego extends JPanel{
 
 class fondoFinJuego extends JPanel{
     private Image imagen;
+
+    
     @Override
     public void paint(Graphics g) {
+        
+        
         imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoFin.png")).getImage();
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
         setOpaque(false);

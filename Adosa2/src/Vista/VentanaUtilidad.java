@@ -12,18 +12,24 @@ import javax.swing.*;
 
 public class VentanaUtilidad extends JFrame{
     Container contenedorPpal;
+    
     private JLabel lblTexto1;
+
     private JLabel lblTexto2;
     private JLabel lblTexto3;
     private JLabel lblTexto4;
     private JLabel lblTexto5;
     private JLabel lblTexto6;
+    private JLabel lblTexto7;
+    
+    private JTextArea texto;
+    private Font fuenteTexto;
     fondoUtilidad fondo = new fondoUtilidad();
     
     public VentanaUtilidad() {
         this.setContentPane(fondo);
         iniciarComponentes();
-        setSize(720, 230);
+        setSize(690, 300);
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("¿Para que sirve?");
@@ -31,33 +37,48 @@ public class VentanaUtilidad extends JFrame{
     }
     
     private void iniciarComponentes(){
-        lblTexto1 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/1.png")));
-        lblTexto1.setBounds(50, 1, 591, 41);
+        fuenteTexto = new Font("JHUF",Font.PLAIN, 20);
+        
+        lblTexto1 = new JLabel("Este juego pone en accion la habilidad para comparar");
+        lblTexto1.setBounds(50, 30, 700, 30);
+        lblTexto1.setFont(fuenteTexto);
+
+        lblTexto2 = new JLabel("patrones visuales, entrenando ademas la atencion");
+        lblTexto2.setBounds(65, 60, 700, 30);
+        lblTexto2.setFont(fuenteTexto);
+        
+        lblTexto3 = new JLabel("a los detalles y la velocidad perceptiva.");
+        lblTexto3.setBounds(95, 90, 700, 30);
+        lblTexto3.setFont(fuenteTexto);
+        
+        lblTexto4 = new JLabel("Estas capacidades son relevantes cuando hay que decidir entre");
+        lblTexto4.setBounds(1, 120, 700, 30);
+        lblTexto4.setFont(fuenteTexto);
+        
+        lblTexto5 = new JLabel ("estimulos semejantes y hay que hacerlo de forma rapida,");
+        lblTexto5.setBounds(23, 150, 700, 30);
+        lblTexto5.setFont(fuenteTexto);
+        
+        lblTexto6 = new JLabel("por ejemplo al reconocer fotografias, caras,");
+        lblTexto6.setBounds(95, 180, 657, 30);
+        lblTexto6.setFont(fuenteTexto);
        
-        lblTexto2 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/2.png")));
-        lblTexto2.setBounds(36, 31, 621, 45);
-        
-        lblTexto3 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/3.png")));
-        lblTexto3.setBounds(27, 65, 645, 41);
-        
-        lblTexto4 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/4.png")));
-        lblTexto4.setBounds(1, 95, 696, 39);
-        
-        lblTexto5 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/5.png")));
-        lblTexto5.setBounds(23, 121, 675, 42);
-        
-        lblTexto6 = new JLabel((new ImageIcon("src/Imagenes/ventanautilidad/6.png")));
-        lblTexto6.setBounds(23, 151, 657, 42);
+        lblTexto7 = new JLabel("objetos cotidianos o palabras escritas.");
+        lblTexto7.setBounds(100, 210, 657, 30);
+        lblTexto7.setFont(fuenteTexto);
         
         contenedorPpal = getContentPane();
         contenedorPpal.setLayout(null);
-        
+        //contenedorPpal.add(texto);
+        contenedorPpal.add(lblTexto1);
+      
         contenedorPpal.add(lblTexto1);
         contenedorPpal.add(lblTexto2);
         contenedorPpal.add(lblTexto3);
         contenedorPpal.add(lblTexto4);
         contenedorPpal.add(lblTexto5);
         contenedorPpal.add(lblTexto6); 
+        contenedorPpal.add(lblTexto7); 
     }
     
     class fondoUtilidad extends JPanel{

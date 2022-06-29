@@ -34,7 +34,7 @@ public class Juego {
     }
 
     public void setPuntuacion() {
-        puntuacion++;
+        puntuacion+=5;
     }
 
     public int getPuntuacion() {
