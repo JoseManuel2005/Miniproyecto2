@@ -8,12 +8,16 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.Border;
+
 /**
- *
- * @author Usuario
+ * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaInstrucciones1.java, Autores (Grupo 01 POE): 
+ * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
+ * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
+ * Fecha creación: 29-06-2022, Fecha última modificación: 30-06-2022 
+ * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
+
 public class VentanaInstrucciones1 extends JFrame {
-    
     private JTextArea txtInstruccion1;
     private JButton btnSgte;
     private JLabel lblImagen; 
@@ -30,8 +34,10 @@ public class VentanaInstrucciones1 extends JFrame {
         setSize(1000,700);
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     private void iniciarComponentes(){
         fuente = new Font("JHUF",Font.PLAIN, 20);
         icono1 = new ImageIcon("src/Imagenes/ventanaInstrucciones/ilustracion1.png");
@@ -48,7 +54,7 @@ public class VentanaInstrucciones1 extends JFrame {
                                         
                                         diferente, el borde azul te indica que el cuadro acaba de cambiar su forma.
                                         
-                                        Cuando veas una pareja identica de cuadros debes pulsar rapidamentes
+                                        Cuando veas una pareja identica de cuadros debes pulsar rapidamente
                                         
                                         espacio o dar clic en el boton""");
         txtInstruccion1.setEditable(false);
@@ -130,11 +136,8 @@ public class VentanaInstrucciones1 extends JFrame {
                 VentanaInicio ventana= new VentanaInicio();
                 dispose();
             }
-        
-    
-            }
-            
-        }
+        }     
+    }
     
     class fondoInstrucciones extends JPanel{
         private Image imagen;

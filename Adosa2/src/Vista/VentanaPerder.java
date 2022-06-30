@@ -8,12 +8,17 @@ import javax.swing.*;
 import Modelo.Juego;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 /**
- *
- * @author Usuario
+ * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaPerder.java, Autores (Grupo 01 POE): 
+ * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
+ * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
+ * Fecha creación: 29-06-2022, Fecha última modificación: 30-06-2022 
+ * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
+
 public class VentanaPerder extends JFrame{
-    private Juego juego;
+    private final Juego juego;
     private JLabel lblFinJuego;
     private JLabel lblAciertos;
     private JLabel lblErrores;
@@ -28,7 +33,6 @@ public class VentanaPerder extends JFrame{
     Container contenedorPpal;
     fondoPerder fondo = new fondoPerder();
     
-
     public VentanaPerder(Juego juego) {
         this.juego = juego;
         this.setContentPane(fondo);
@@ -36,6 +40,7 @@ public class VentanaPerder extends JFrame{
         setSize(500,450);
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
@@ -89,13 +94,12 @@ public class VentanaPerder extends JFrame{
         btnCerrar.addMouseListener(new manejadoraDeEventos());
     }
     
-    
     class manejadoraDeEventos extends MouseAdapter{
 
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == btnReiniciarJuego) {
-                VentanaJuego juego= new VentanaJuego();
+                VentanaJuego juego = new VentanaJuego();
                 dispose();
             }else if (e.getSource() == btnCerrar)
             {
@@ -117,4 +121,3 @@ public class VentanaPerder extends JFrame{
         }
     }
 }
-

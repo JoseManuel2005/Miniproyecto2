@@ -8,7 +8,7 @@ import javax.swing.*;
  * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaUtilidad.java, Autores (Grupo 01 POE): 
  * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
  * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
- * Fecha creación: 10-06-2022, Fecha última modificación: 18-06-2022 
+ * Fecha creación: 10-06-2022, Fecha última modificación: 30-06-2022 
  * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
 
@@ -26,6 +26,7 @@ public class VentanaUtilidad extends JFrame{
         iniciarComponentes();
         setSize(700, 500);
         setVisible(true);
+        setResizable(false);
         setLocationRelativeTo(null);
         setTitle("¿Para que sirve?");
         setDefaultCloseOperation(EXIT_ON_CLOSE); 
@@ -81,11 +82,8 @@ public class VentanaUtilidad extends JFrame{
                 VentanaInicio ventana= new VentanaInicio();
                 dispose();
             }
-        
-    
-            }
-            
-        }
+        }       
+    }
     
     class fondoUtilidad extends JPanel{
         private Image imagen;

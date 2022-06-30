@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
  * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaInicio.java, Autores (Grupo 01 POE): 
  * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
  * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
- * Fecha creación: 10-06-2022, Fecha última modificación: 18-06-2022 
+ * Fecha creación: 10-06-2022, Fecha última modificación: 30-06-2022 
  * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
 
@@ -17,16 +17,14 @@ public class VentanaInicio extends JFrame{
     private JButton btnJugar;
     private JButton btnUtilidad;
     private Container contenedorppal;
-    private JPanel panelBotones;
-    private JPanel panelPrincipal;
-    imagenFondo imagenFondo = new imagenFondo();
     private ImageIcon fondoJugar;
     private ImageIcon fondoComoJugar; 
     private ImageIcon fondoUtilidad; 
     private ImageIcon fondoPresionadoJugar; 
     private ImageIcon fondoPresionadoUtilidad; 
     private ImageIcon fondoPresionadoComoJugar; 
-    
+    imagenFondo imagenFondo = new imagenFondo();
+
     public VentanaInicio(){
         this.setContentPane(imagenFondo);
         iniciarComponentes();
@@ -34,6 +32,7 @@ public class VentanaInicio extends JFrame{
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("Adosa2");
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
     }
     
@@ -60,7 +59,6 @@ public class VentanaInicio extends JFrame{
         btnJugar.setBounds(380, 380, 238, 77);
         btnJugar.setIcon(new ImageIcon(fondoJugar.getImage().getScaledInstance(btnJugar.getWidth() , btnJugar.getHeight(), Image.SCALE_SMOOTH)));
         btnJugar.setRolloverIcon(new ImageIcon(fondoPresionadoJugar.getImage().getScaledInstance(btnJugar.getWidth() , btnJugar.getHeight(), Image.SCALE_SMOOTH)));
-        //btnJugar.setPressedIcon(fondoPresionadoJugar);
         btnJugar.setFocusPainted(false);
         btnJugar.setBorderPainted(false);
         btnJugar.setContentAreaFilled(false);

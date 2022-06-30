@@ -25,15 +25,12 @@ import javax.swing.border.Border;
  * Laboratorio N.2: segundo miniproyecto. Archivo: VentanaJuego.java, Autores (Grupo 01 POE): 
  * Brayan Andrés Sánchez Lozano <brayan.andres.sanchez@correounivalle.edu.co>
  * Jose Manuel Palma Oquendo <jose.palma@correounivalle.edu.co>
- * Fecha creación: 10-06-2022, Fecha última modificación: 18-06-2022 
+ * Fecha creación: 10-06-2022, Fecha última modificación: 30-06-2022 
  * Docente: Luis Romo <luis.romo@correounivalle.edu.co>
  */
 
 public class VentanaJuego extends JFrame{
     private JLabel lblPuntuacion;
-    private JButton btnVida1;
-    private JButton btnVida2;
-    private JButton btnVida3;
     private JLabel lblCuadrado1;
     private JLabel lblCuadrado2;
     private JLabel lblCuadrado3;
@@ -92,6 +89,7 @@ public class VentanaJuego extends JFrame{
         setSize(800,700);
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -287,7 +285,6 @@ public class VentanaJuego extends JFrame{
                     break;
                 }
             }
-            System.out.println(aux);
         });
         
         timer.start();
@@ -295,7 +292,6 @@ public class VentanaJuego extends JFrame{
         ImgAdivinar = new ImageIcon("src/Imagenes/ventanaJuego/boton.PNG");
         ImgAdivinarPresionado = new ImageIcon("src/Imagenes/ventanaJuego/botonPresionado.PNG");
 
-        
         btnAdivinar = new JButton();
         btnAdivinar.setBounds(600, 450, 130, 130);
         btnAdivinar.setIcon(new ImageIcon(ImgAdivinar.getImage().getScaledInstance(btnAdivinar.getWidth() , btnAdivinar.getHeight(), Image.SCALE_SMOOTH)));
@@ -342,7 +338,7 @@ public class VentanaJuego extends JFrame{
         cuadrosGraficar.add(tres);
     }
 
-    // Recibe un cuadrado, cambia su imagen, asi como el icono del Label, evitando a toda costa que esta se repita
+    // Recibe un cuadrado, cambia su imagen, asi como el icono del Label, evitando que esta se repita
     public void cambioDeImagen(Cuadrado x, Icon iconx, JLabel lblx){
         int lastImage = x.getImagen();
         x.setImagen();
@@ -364,6 +360,7 @@ public class VentanaJuego extends JFrame{
         lastCuadrado = x;
     }
 
+    // Cambia el número de Imagen, más no la imagen. Esto, con efectos de que no se repita cuando se hace una verificación
     public void cambioDeNumero(Cuadrado y){
         int lastImage = y.getImagen();
         y.setImagen();
@@ -461,6 +458,7 @@ public class VentanaJuego extends JFrame{
         timer.start();
     }
 
+    // Devuelve el label correspondiente a un objeto Cuadrado que recibe como parámetro
     public JLabel encontrarLabel(Cuadrado l){
         JLabel labelAux = new JLabel();
         switch(l.getNumero()){
@@ -500,6 +498,7 @@ public class VentanaJuego extends JFrame{
         return labelAux;
     }
     
+    // Pone un recuadro verde, o rojo, a los labels que contengan un patrón similar, esto dependiendo de su entrada
     public List<JLabel> iluminarCuadrados(boolean iguales){
         borderTime.stop();
         btnAdivinar.setVisible(false);
@@ -530,13 +529,13 @@ public class VentanaJuego extends JFrame{
             encontrarLabel(cuadradoAux).setBorder(bordeRojo);
         }
 
-
         listaLabels.add(encontrarLabel(lastCuadrado));
         listaLabels.add(encontrarLabel(cuadradoAux));
 
         return listaLabels;
     }
 
+    // Quita el borde de los labels que anteriormente tenían el mismo patrón
     public void apagarCuadros(List<JLabel> lista){
         for(JLabel j : lista){
             j.setBorder(null);
@@ -561,7 +560,6 @@ public class VentanaJuego extends JFrame{
             if(juego.getTiempo() > 700){
                 juego.setTiempo(juego.getTiempo() - 75);                
             }
-
             graficarDiferentes();
             restart.stop();
         });
@@ -585,37 +583,30 @@ public class VentanaJuego extends JFrame{
             if (juego.isHuboError()== true) {
                 switch (juego.getErrores()) {
                     case 1 -> {
-                        //btnVida3.setVisible(false);
                         lblvida3.setVisible(false);
                     }
                     case 2 -> {
-                        //btnVida2.setVisible(false);
                         lblvida2.setVisible(false);
                     }
                     case 3 -> {
-                        //btnVida1.setVisible(false);
                         lblvida1.setVisible(false);
                         timer.stop();
                         sonido.close();
                         reproducirSonido("derrota");
                         contenedorppal.removeAll();
                         SwingUtilities.updateComponentTreeUI(contenedorppal);
-                        //this.setContentPane(fondoFin);
                         VentanaPerder estadisiticas = new VentanaPerder(juego);
                         dispose();
-                        //this.setContentPane(fondoFin);
-                        System.out.println("Fin del juego");
-                        
-                            
+                        System.out.println("Fin del juego");                            
                     }
                 }
             }
-
             restart.stop();
         });
         restart.start();
     }
 
+    // Llama al metodo play con un respectivo sonido y duración del mismo, dependiendo de la entrada
     public void reproducirSonido(String cualSonido){
         switch(cualSonido){
             case "fondo" -> {
@@ -638,6 +629,7 @@ public class VentanaJuego extends JFrame{
         }
     }
 
+    // Reproduce un sonido, del cual recibe la dirección de archivo, así como el tiempo en el que este debe sonar
     void play(String filePath, int delay2) {
         try {
             Clip sonido2 = AudioSystem.getClip();
@@ -710,11 +702,8 @@ class fondoJuego extends JPanel{
 class fondoFinJuego extends JPanel{
     private Image imagen;
 
-    
     @Override
     public void paint(Graphics g) {
-        
-        
         imagen = new ImageIcon(getClass().getResource("/imagenes/frames/fondoFin.png")).getImage();
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
         setOpaque(false);
