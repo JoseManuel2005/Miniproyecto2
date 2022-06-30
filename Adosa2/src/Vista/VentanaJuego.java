@@ -315,31 +315,11 @@ public class VentanaJuego extends JFrame{
         
         lblvida3 = new JLabel(fondoVidas);
         lblvida3.setBounds(670, 20, 50, 50);
-        
-        /*
-        fondoVidas = new ImageIcon("src/Imagenes/ventanaJuego/vida.PNG");
-        btnVida1 = new JButton();
-        btnVida1.setEnabled(false);
-        btnVida1.setIcon(fondoVidas);
-        btnVida1.setBounds(550, 20, 50, 50);
-      
-        btnVida2 = new JButton();
-        btnVida2.setEnabled(false);
-        btnVida2.setIcon(fondoVidas);
-        btnVida2.setBounds(610, 20, 50, 50);
-        
-        btnVida3 = new JButton();
-        btnVida3.setEnabled(false);
-        btnVida3.setIcon(fondoVidas);
-        btnVida3.setBounds(670, 20, 50, 50);*/
-        
+
         contenedorppal = getContentPane();
         contenedorppal.setLayout(null);
         
         contenedorppal.add(lblPuntuacion);
-        //contenedorppal.add(btnVida1);
-        //contenedorppal.add(btnVida2);
-        //contenedorppal.add(btnVida3);
         contenedorppal.add(lblCuadrado1);
         contenedorppal.add(lblCuadrado2);
         contenedorppal.add(lblCuadrado3);

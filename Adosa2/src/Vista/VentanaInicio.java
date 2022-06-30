@@ -55,9 +55,7 @@ public class VentanaInicio extends JFrame{
         btnComoJugar.setContentAreaFilled(false);
         btnComoJugar.setAutoscrolls(true);
         btnComoJugar.setBorder(null);
-        //btnComoJugar.setPressedIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarp.png")));
-        //btnComoJugar.setRolloverIcon(new ImageIcon(getClass().getResource("C:\\Miniproyecto2\\Adosa2\\src\\Imagenes\\botones\\jugarr.png")));
-         
+    
         btnJugar = new JButton("Jugar");
         btnJugar.setBounds(380, 380, 238, 77);
         btnJugar.setIcon(new ImageIcon(fondoJugar.getImage().getScaledInstance(btnJugar.getWidth() , btnJugar.getHeight(), Image.SCALE_SMOOTH)));
@@ -77,28 +75,11 @@ public class VentanaInicio extends JFrame{
 
         contenedorppal = getContentPane();
         contenedorppal.setLayout(null);
-        
-        /*
-        contenedorppal.add(btnComoJugar);
-        contenedorppal.add(btnComoJugar);
-        panelBotones = new JPanel();
-        panelBotones.setLayout(new FlowLayout());
-        */
-
         contenedorppal = getContentPane();
-        
-        /*
-        panelPrincipal = new JPanel();
-        panelBotones.add(btnComoJugar);
-        panelBotones.add(btnJugar);
-        panelBotones.add(btnUtilidad);
-        panelPrincipal.add(panelBotones);
-        */
-
         contenedorppal.add(btnComoJugar);
         contenedorppal.add(btnJugar);
         contenedorppal.add(btnUtilidad);
-        //panelPrincipal.setBounds(20, 160, 450, 40);
+        
         btnJugar.addMouseListener(new ManejadorEventos());
         btnComoJugar.addMouseListener(new ManejadorEventos());
         btnUtilidad.addMouseListener(new ManejadorEventos()); 

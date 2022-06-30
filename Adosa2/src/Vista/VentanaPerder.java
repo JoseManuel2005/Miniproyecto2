@@ -100,6 +100,7 @@ public class VentanaPerder extends JFrame{
             }else if (e.getSource() == btnCerrar)
             {
                 VentanaInicio ventana = new VentanaInicio();
+                dispose();
             }
         }
         
