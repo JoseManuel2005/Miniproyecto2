@@ -17,14 +17,8 @@ public class Adosa2 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-      
-        //VentanaInicio ventana = new VentanaInicio();
-        //VentanaUtilidad ventanaUtilidad = new VentanaUtilidad();
-        VentanaInstrucciones1 ventanaInstrucciones = new VentanaInstrucciones1();
-        //VentanaJuego ventanaJuego = new VentanaJuego();
-        //VentanaPerder ventana = new VentanaPerder();
-        // TODO code application logic here
+    public static void main(String[] args) {     
+        VentanaInicio ventana = new VentanaInicio();       
     }
     
 }

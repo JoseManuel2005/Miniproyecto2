@@ -1,5 +1,7 @@
 package Vista;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 /**
@@ -12,24 +14,17 @@ import javax.swing.*;
 
 public class VentanaUtilidad extends JFrame{
     Container contenedorPpal;
-    
-    private JLabel lblTexto1;
-
-    private JLabel lblTexto2;
-    private JLabel lblTexto3;
-    private JLabel lblTexto4;
-    private JLabel lblTexto5;
-    private JLabel lblTexto6;
-    private JLabel lblTexto7;
-    
-    private JTextArea texto;
+    private JTextArea txtUtilidad;
+    private JButton btnAtras;
+    private Icon iconoMenu1;
+    private Icon iconoMenuPress1;
     private Font fuenteTexto;
     fondoUtilidad fondo = new fondoUtilidad();
     
     public VentanaUtilidad() {
         this.setContentPane(fondo);
         iniciarComponentes();
-        setSize(690, 300);
+        setSize(700, 500);
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("¿Para que sirve?");
@@ -37,49 +32,60 @@ public class VentanaUtilidad extends JFrame{
     }
     
     private void iniciarComponentes(){
+        iconoMenu1 = new ImageIcon("src/Imagenes/ventanaUtilidad/menu.png");
+        iconoMenuPress1= new ImageIcon("src/Imagenes/ventanaUtilidad/menuPress.png");
         fuenteTexto = new Font("JHUF",Font.PLAIN, 20);
         
-        lblTexto1 = new JLabel("Este juego pone en accion la habilidad para comparar");
-        lblTexto1.setBounds(50, 30, 700, 30);
-        lblTexto1.setFont(fuenteTexto);
+        txtUtilidad = new JTextArea("""
+                                    Este juego pone en accion la habilidad para 
+                                    
+                                    comparar patrones visuales, entrenando ademas 
+                                    
+                                    la atencion a los detalles y la velocidad perceptiva. 
+                                    
+                                    Estas capacidades son relevantes cuando hay que 
+                                    
+                                    decidir entre estimulos semejantes y hay que hacerlo 
+                                    
+                                    de forma rapida, por ejemplo al reconocer  fotografias, 
+                                    
+                                    caras, objetos cotidianos o palabras escritas
+                                    """);
+        txtUtilidad.setBounds(50, 100, 600, 200);
+        txtUtilidad.setFont(fuenteTexto);
+        txtUtilidad.setOpaque(false);
+        txtUtilidad.setEditable(false);
 
-        lblTexto2 = new JLabel("patrones visuales, entrenando ademas la atencion");
-        lblTexto2.setBounds(65, 60, 700, 30);
-        lblTexto2.setFont(fuenteTexto);
-        
-        lblTexto3 = new JLabel("a los detalles y la velocidad perceptiva.");
-        lblTexto3.setBounds(95, 90, 700, 30);
-        lblTexto3.setFont(fuenteTexto);
-        
-        lblTexto4 = new JLabel("Estas capacidades son relevantes cuando hay que decidir entre");
-        lblTexto4.setBounds(1, 120, 700, 30);
-        lblTexto4.setFont(fuenteTexto);
-        
-        lblTexto5 = new JLabel ("estimulos semejantes y hay que hacerlo de forma rapida,");
-        lblTexto5.setBounds(23, 150, 700, 30);
-        lblTexto5.setFont(fuenteTexto);
-        
-        lblTexto6 = new JLabel("por ejemplo al reconocer fotografias, caras,");
-        lblTexto6.setBounds(95, 180, 657, 30);
-        lblTexto6.setFont(fuenteTexto);
-       
-        lblTexto7 = new JLabel("objetos cotidianos o palabras escritas.");
-        lblTexto7.setBounds(100, 210, 657, 30);
-        lblTexto7.setFont(fuenteTexto);
+        btnAtras = new JButton(iconoMenu1);
+        btnAtras.setRolloverIcon(iconoMenuPress1);
+        btnAtras.setBounds(290, 300, 130, 50);
+        btnAtras.setFocusPainted(false);
+        btnAtras.setBorderPainted(false);
+        btnAtras.setContentAreaFilled(false);
+        btnAtras.setAutoscrolls(true);
+        btnAtras.setBorder(null);
         
         contenedorPpal = getContentPane();
-        contenedorPpal.setLayout(null);
-        //contenedorPpal.add(texto);
-        contenedorPpal.add(lblTexto1);
-      
-        contenedorPpal.add(lblTexto1);
-        contenedorPpal.add(lblTexto2);
-        contenedorPpal.add(lblTexto3);
-        contenedorPpal.add(lblTexto4);
-        contenedorPpal.add(lblTexto5);
-        contenedorPpal.add(lblTexto6); 
-        contenedorPpal.add(lblTexto7); 
+        contenedorPpal.setLayout(null);  
+        contenedorPpal.add(txtUtilidad);
+        contenedorPpal.add(btnAtras);
+        
+        btnAtras.addMouseListener(new manejadoraDeEventos());    
     }
+    
+    class manejadoraDeEventos extends MouseAdapter{
+
+        @Override
+        public void mouseClicked(MouseEvent e) { 
+            if (e.getSource() == btnAtras) {
+                VentanaInicio ventana= new VentanaInicio();
+                dispose();
+            }
+        
+    
+            }
+            
+        }
     
     class fondoUtilidad extends JPanel{
         private Image imagen;
